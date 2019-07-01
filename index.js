@@ -10,8 +10,8 @@ var Q = require('bluebird');
 var fs = require('fs-extra');
 var path = require('path');
 var _ = require('lodash');
-var Gauge = require("gauge");
 var sharp = require('sharp');
+var Gauge = require('gauge');
 
 const IMAGE_FORMATS = ['svg', 'webp', 'png', 'tif', 'tiff', 'dzi', 'szi', 'v', 'vips', 'jpg', 'jpeg'];
 
@@ -47,16 +47,16 @@ var display = {
 
 var PLATFORMS = {
     'android': {
-        definitions: ['./platforms/icons/android', './platforms/splash/android']
+        definitions: [ './platforms/icons/android', './platforms/splash/android' ]
     },
     'ios': {
-        definitions: ['./platforms/icons/ios', './platforms/splash/ios']
+        definitions: [ './platforms/icons/ios', './platforms/splash/ios' ]
     },
     'windows': {
-        definitions: ['./platforms/icons/windows', './platforms/splash/windows']
+        definitions: [ './platforms/icons/windows', './platforms/splash/windows' ]
     },
     'blackberry10': {
-        definitions: ['./platforms/icons/blackberry10']
+        definitions: [ './platforms/icons/blackberry10' ]
     }
 };
 var g_imageObjects;
@@ -157,6 +157,23 @@ function checkPlatforms(settings) {
     return Q.resolve(platformsToProcess);
 }
 
+function updatePlatforms(settings) {
+    if (settings.configPath) {
+        for (var platform in PLATFORMS) {
+            var iconConfig = PLATFORMS[platform].definitions[0];
+            if (iconConfig) {
+                PLATFORMS[platform].definitions[0] = iconConfig.replace('./platforms', settings.configPath);
+            }
+
+            var splashConfig = PLATFORMS[platform].definitions[1];
+            if (splashConfig) {
+                PLATFORMS[platform].definitions[1] = splashConfig.replace('./platforms', settings.configPath);
+            }
+        }
+    }
+    return Q.resolve(settings);
+}
+
 function getImages(settings) {
 
     var imageObjects = {
@@ -231,6 +248,8 @@ function checkOutPutDir(settings) {
 }
 
 function generateForConfig(imageObj, settings, config) {
+    // console.log('[generateForConfig] ',  JSON.stringify(settings, null, 2), JSON.stringify(config, null, 2));
+
     var platformPath = path.join(settings.outputdirectory, config.path);
 
     var transformIcon = (definition) => {
@@ -253,19 +272,38 @@ function generateForConfig(imageObj, settings, config) {
         var height = definition.height;
 
         var outputFilePath = path.join(platformPath, definition.name);
-        var outDir = path.dirname(outputFilePath);
-        return fs.ensureDir(outDir).then(()=>{
-          return image.resize(width, height)
-          .crop(sharp.strategy.entropy)
-          .toFile(outputFilePath)
-        })
+
+        if (definition.name === 'icon-1024.png') {
+            image
+                .cover(width, height)
+                .write(outputFilePath,
+                    (err) => {
+                        if (err) {
+                            defer.reject(err);
+                        }
+                        //display.info('Generated splash file for ' + outputFilePath);
+                        defer.resolve();
+                    });
+        } else {
+            image
+                .cover(width, height)
+                .write(outputFilePath,
+                    (err) => {
+                        if (err) {
+                            defer.reject(err);
+                        }
+                        //display.info('Generated splash file for ' + outputFilePath);
+                        defer.resolve();
+                    });
+        }
+
+        return defer.promise;
     };
 
     return fs.ensureDir(platformPath)
         .then(() => {
-
             var definitions = config.definitions;
-            var sectionName = "Generating " + config.type + ' files for ' + config.platform;
+            var sectionName = 'Generating ' + config.type + ' files for ' + config.platform;
             var definitionCount = definitions.length;
             var progressIndex = 0;
 
@@ -311,14 +349,18 @@ function generate(imageObj, settings) {
     });
 
     var filteredConfigs = _.filter(configs, (config) => {
-        if (config.type === 'icon' && settings.makeicon) return true;
-        if (config.type === 'splash' && settings.makesplash) return true;
+        if (config.type === 'icon' && settings.makeicon) {
+            return true;
+        }
+        if (config.type === 'splash' && settings.makesplash) {
+            return true;
+        }
         return false;
     });
 
     return Q.mapSeries(filteredConfigs, (config) => {
-            return generateForConfig(imageObj, settings, config);
-        })
+        return generateForConfig(imageObj, settings, config);
+    })
         .then(() => {
             //display.success("Successfully generated all files");
         });
@@ -365,7 +407,7 @@ var g_settings = {
 
 // app entry point
 
-console.log("***************************");
+console.log('***************************');
 console.log("cordova-res-generator " + pjson.version);
 console.log("***************************");
 
