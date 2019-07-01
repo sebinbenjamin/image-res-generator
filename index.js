@@ -3,13 +3,15 @@
 'use strict';
 
 // libs init
-var program = require('commander');
-var Q = require('bluebird');
-var fs = require('fs-extra');
-var path = require('path');
-var _ = require('lodash');
-var sharp = require('sharp');
-var Gauge = require('gauge');
+const program = require('commander');
+const Q = require('bluebird');
+const fs = require('fs-extra');
+const colors = require('colors')
+const path = require('path');
+const _ = require('lodash');
+const sharp = require('sharp');
+const Gauge = require('gauge');
+const packageJSON = require('./package.json');
 
 const IMAGE_FORMATS = ['svg', 'webp', 'png', 'tif', 'tiff', 'dzi', 'szi', 'v', 'vips', 'jpg', 'jpeg'];
 
@@ -22,17 +24,16 @@ function isSupportedFormat(aFileName) {
 }
 
 // helpers
-
-var display = {
+const display = {
   info: (str) => {
     console.log(str);
   },
   success: (str) => {
-    str = ' ' + '✓'.green + ' ' + str;
+    str = ' ' + colors.green('✓') + ' ' + str;
     console.log(str);
   },
   error: (str) => {
-    str = ' ' + '✗'.red + ' ' + str;
+    str = ' ' + colors.red('✗') + ' ' + str;
     console.log(str);
   },
   header: (str) => {
@@ -42,7 +43,6 @@ var display = {
 };
 
 // app main variables and constants
-
 var PLATFORMS = {
   'android': {
     definitions: ['./platforms/icons/android', './platforms/splash/android']
@@ -61,7 +61,6 @@ var g_imageObjects;
 var g_selectedPlatforms = [];
 
 // app functions
-
 function getValidFileName(aFileName) {
   var result;
   var ext = path.extname(aFileName);
@@ -88,24 +87,23 @@ function check(settings) {
 
   var vFile;
   try {
-    vFile = getValidFileName(settings.iconfile);
-    settings.iconfile = vFile;
+    vFile = getValidFileName(settings.iconFile);
+    settings.iconFile = vFile;
 
-    vFile = getValidFileName(settings.splashfile);
-    settings.splashfile = vFile;
+    vFile = getValidFileName(settings.splashFile);
+    settings.splashFile = vFile;
   } catch (err) {
     catchErrors(err);
   }
 
   return updatePlatforms(settings)
-  .then(() => checkPlatforms(settings))
+    .then(() => checkPlatforms(settings))
     .then((selPlatforms) => g_selectedPlatforms = selPlatforms)
     .then(() => getImages(settings))
-    .then((iobjs) => {
-      g_imageObjects = iobjs;
+    .then((imageObjects) => {
+      g_imageObjects = imageObjects;
     })
     .then(() => checkOutPutDir(settings));
-
 }
 
 function updatePlatforms(settings) {
@@ -122,7 +120,6 @@ function updatePlatforms(settings) {
       }
     }
   }
-
   return Q.resolve(settings);
 }
 
@@ -157,7 +154,6 @@ function checkPlatforms(settings) {
 }
 
 function getImages(settings) {
-
   var imageObjects = {
     icon: null,
     splash: null
@@ -165,14 +161,14 @@ function getImages(settings) {
 
   var promise = Q.resolve();
 
-  if (settings.makeicon) {
-    promise = promise.then(() => checkIconFile(settings.iconfile))
+  if (settings.makeIcon) {
+    promise = promise.then(() => checkIconFile(settings.iconFile))
       .then((image) => {
         imageObjects.icon = image;
       });
   }
-  if (settings.makesplash) {
-    promise = promise.then(() => checkSplashFile(settings.splashfile))
+  if (settings.makeSplash) {
+    promise = promise.then(() => checkSplashFile(settings.splashFile))
       .then((image) => {
         imageObjects.splash = image;
       });
@@ -211,11 +207,10 @@ function getImages(settings) {
         return result;
       })
   }
-
 }
 
 function checkOutPutDir(settings) {
-  var dir = settings.outputdirectory;
+  var dir = settings.outputDirectory;
 
   return fs.pathExists(dir)
     .then((exists) => {
@@ -226,13 +221,11 @@ function checkOutPutDir(settings) {
         throw ('Output directory not found: ' + dir);
       }
     });
-
 }
 
 function generateForConfig(imageObj, settings, config) {
   // console.log('[generateForConfig] ',  JSON.stringify(settings, null, 2), JSON.stringify(config, null, 2));
-
-  var platformPath = path.join(settings.outputdirectory, config.path);
+  var platformPath = path.join(settings.outputDirectory, config.path);
 
   var transformIcon = (definition) => {
     var image = imageObj.icon;
@@ -247,12 +240,9 @@ function generateForConfig(imageObj, settings, config) {
 
   var transformSplash = (definition) => {
     var image = imageObj.splash;
-
     var width = definition.width;
     var height = definition.height;
-
     var outputFilePath = path.join(platformPath, definition.name);
-
     var outDir = path.dirname(outputFilePath);
 
     return fs.ensureDir(outDir).then(() => {
@@ -296,25 +286,22 @@ function generateForConfig(imageObj, settings, config) {
         gauge.disable();
         throw (err);
       });
-
     });
 }
 
 function generate(imageObj, settings) {
 
   display.header('Generating files');
-
   var configs = [];
-
   g_selectedPlatforms.forEach((platform) => {
-    PLATFORMS[platform].definitions.forEach((def) => configs.push(require(def)));
+    PLATFORMS[platform].definitions.forEach((platformDef) => configs.push(require(platformDef)));
   });
 
   var filteredConfigs = _.filter(configs, (config) => {
-    if (config.type === 'icon' && settings.makeicon) {
+    if (config.type === 'icon' && settings.makeIcon) {
       return true;
     }
-    if (config.type === 'splash' && settings.makesplash) {
+    if (config.type === 'splash' && settings.makeSplash) {
       return true;
     }
     return false;
@@ -337,41 +324,38 @@ function catchErrors(err) {
 }
 
 // cli helper configuration
-
 function processList(val) {
   return val.split(',');
 }
 
-var pjson = require('./package.json');
-
 program
-  .version(pjson.version)
-  .description(pjson.description)
+  .version(packageJSON.version)
+  .description(packageJSON.description)
   .option('-i, --icon [optional]', 'optional icon file path (default: ./resources/icon)')
   .option('-s, --splash [optional]', 'optional splash file path (default: ./resources/splash)')
   .option('-p, --platforms [optional]', 'optional platform token comma separated list (default: all platforms processed)', processList)
-  .option('-o, --outputdir [optional]', 'optional output directory (default: ./resources/)')
-  .option('-I, --makeicon [optional]', 'option to process icon files only')
-  .option('-S, --makesplash [optional]', 'option to process splash files only')
+  .option('-o, --outputDir [optional]', 'optional output directory (default: ./resources/)')
+  .option('-I, --makeIcon [optional]', 'option to process icon files only')
+  .option('-S, --makeSplash [optional]', 'option to process splash files only')
   .option('--configPath [optional]', 'option to change the default config path (default: ./platforms)')
   .parse(process.argv);
 
 // app settings and default values
 
 var g_settings = {
-  iconfile: program.icon || path.join('.', 'resources', 'icon'),
-  splashfile: program.splash || path.join('.', 'resources', 'splash'),
+  iconFile: program.icon || path.join('.', 'resources', 'icon'),
+  splashFile: program.splash || path.join('.', 'resources', 'splash'),
   platforms: program.platforms || undefined,
-  outputdirectory: program.outputdir || path.join('.', 'resources'),
-  makeicon: program.makeicon || (!program.makeicon && !program.makesplash) ? true : false,
-  makesplash: program.makesplash || (!program.makeicon && !program.makesplash) ? true : false,
+  outputDirectory: program.outputDir || path.join('.', 'resources'),
+  makeIcon: program.makeIcon || (!program.makeIcon && !program.makeSplash) ? true : false,
+  makeSplash: program.makeSplash || (!program.makeIcon && !program.makeSplash) ? true : false,
   configPath: program.configPath || undefined,
 };
 
 // app entry point
 
 console.log('***************************');
-console.log("cordova-res-generator " + pjson.version);
+console.log("cordova-res-generator " + packageJSON.version);
 console.log("***************************");
 
 check(g_settings)
