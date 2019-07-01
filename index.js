@@ -1,10 +1,9 @@
 #!/usr/bin / env node
+/* eslint-disable no-console */
 'use strict';
 
 // libs init
-
 var program = require('commander');
-var colors = require('colors');
 var Q = require('bluebird');
 var fs = require('fs-extra');
 var path = require('path');
@@ -98,7 +97,8 @@ function check(settings) {
     catchErrors(err);
   }
 
-  return checkPlatforms(settings)
+  return updatePlatforms(settings)
+  .then(() => checkPlatforms(settings))
     .then((selPlatforms) => g_selectedPlatforms = selPlatforms)
     .then(() => getImages(settings))
     .then((iobjs) => {
@@ -154,23 +154,6 @@ function checkPlatforms(settings) {
 
   display.success('Processing files for: ' + platformsToProcess);
   return Q.resolve(platformsToProcess);
-}
-
-function updatePlatforms(settings) {
-  if (settings.configPath) {
-    for (var platform in PLATFORMS) {
-      var iconConfig = PLATFORMS[platform].definitions[0];
-      if (iconConfig) {
-        PLATFORMS[platform].definitions[0] = iconConfig.replace('./platforms', settings.configPath);
-      }
-
-      var splashConfig = PLATFORMS[platform].definitions[1];
-      if (splashConfig) {
-        PLATFORMS[platform].definitions[1] = splashConfig.replace('./platforms', settings.configPath);
-      }
-    }
-  }
-  return Q.resolve(settings);
 }
 
 function getImages(settings) {
@@ -265,8 +248,6 @@ function generateForConfig(imageObj, settings, config) {
   var transformSplash = (definition) => {
     var image = imageObj.splash;
 
-    var x = (image.__meta.width - definition.width) / 2;
-    var y = (image.__meta.height - definition.height) / 2;
     var width = definition.width;
     var height = definition.height;
 
@@ -362,6 +343,7 @@ function processList(val) {
 }
 
 var pjson = require('./package.json');
+
 program
   .version(pjson.version)
   .description(pjson.description)
