@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Automatic icon and splash screen resizing CLI tool for **Cordova**/**Ionic**/**PhoneGap** based applications.
+Automatic icon and splash screen resizing CLI tool for **Cordova**/**Ionic**/**PhoneGap** based applications and PWAs.
 
 It automatically resizes and copies your ```icon.png``` and ```splash.png``` files to platform dedicated directories.
 
@@ -87,6 +87,8 @@ Supported platforms:
   - icons
   - splash screens
 - **Blackberry 10**
+  - icons
+- **PWAs**
   - icons
 
 ---
