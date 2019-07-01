@@ -273,31 +273,13 @@ function generateForConfig(imageObj, settings, config) {
 
         var outputFilePath = path.join(platformPath, definition.name);
 
-        if (definition.name === 'icon-1024.png') {
-            image
-                .cover(width, height)
-                .write(outputFilePath,
-                    (err) => {
-                        if (err) {
-                            defer.reject(err);
-                        }
-                        //display.info('Generated splash file for ' + outputFilePath);
-                        defer.resolve();
-                    });
-        } else {
-            image
-                .cover(width, height)
-                .write(outputFilePath,
-                    (err) => {
-                        if (err) {
-                            defer.reject(err);
-                        }
-                        //display.info('Generated splash file for ' + outputFilePath);
-                        defer.resolve();
-                    });
-        }
+        var outDir = path.dirname(outputFilePath);
 
-        return defer.promise;
+        return fs.ensureDir(outDir).then(()=>{
+          return image.resize(width, height)
+          .crop(sharp.strategy.entropy)
+          .toFile(outputFilePath)
+        })
     };
 
     return fs.ensureDir(platformPath)
