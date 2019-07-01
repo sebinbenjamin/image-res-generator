@@ -4,7 +4,7 @@
 
 // libs init
 const program = require('commander');
-const Q = require('bluebird');
+const bluePromise = require('bluebird');
 const fs = require('fs-extra');
 const colors = require('colors')
 const path = require('path');
@@ -42,8 +42,8 @@ const display = {
   }
 };
 
-// app main variables and constants
-var PLATFORMS = {
+// app main constiables and constants
+const PLATFORMS = {
   'android': {
     definitions: ['./platforms/icons/android', './platforms/splash/android']
   },
@@ -55,15 +55,18 @@ var PLATFORMS = {
   },
   'blackberry10': {
     definitions: ['./platforms/icons/blackberry10']
+  },
+  'pwa': {
+    definitions: ['./platforms/icons/pwa.js']
   }
 };
-var g_imageObjects;
-var g_selectedPlatforms = [];
+let g_imageObjects;
+let g_selectedPlatforms = [];
 
 // app functions
 function getValidFileName(aFileName) {
-  var result;
-  var ext = path.extname(aFileName);
+  let result;
+  const ext = path.extname(aFileName);
   if (ext.length > 1) {
     if (!isSupportedFormat(aFileName)) {
       throw new Error(aFileName + ' is not supported image format!');
@@ -85,7 +88,7 @@ function getValidFileName(aFileName) {
 function check(settings) {
   display.header('Checking files and directories');
 
-  var vFile;
+  let vFile;
   try {
     vFile = getValidFileName(settings.iconFile);
     settings.iconFile = vFile;
@@ -108,32 +111,32 @@ function check(settings) {
 
 function updatePlatforms(settings) {
   if (settings.configPath) {
-    for (var platform in PLATFORMS) {
-      var iconConfig = PLATFORMS[platform].definitions[0];
+    for (const platform in PLATFORMS) {
+      const iconConfig = PLATFORMS[platform].definitions[0];
       if (iconConfig) {
         PLATFORMS[platform].definitions[0] = iconConfig.replace('./platforms', settings.configPath);
       }
 
-      var splashConfig = PLATFORMS[platform].definitions[1];
+      const splashConfig = PLATFORMS[platform].definitions[1];
       if (splashConfig) {
         PLATFORMS[platform].definitions[1] = splashConfig.replace('./platforms', settings.configPath);
       }
     }
   }
-  return Q.resolve(settings);
+  return bluePromise.resolve(settings);
 }
 
 function checkPlatforms(settings) {
-  var platformsKeys = _.keys(PLATFORMS);
+  const platformsKeys = _.keys(PLATFORMS);
 
   if (!settings.platforms || !Array.isArray(settings.platforms)) {
     display.success('Processing files for all platforms');
-    return Q.resolve(platformsKeys);
+    return bluePromise.resolve(platformsKeys);
   }
 
-  var platforms = settings.platforms;
-  var platformsToProcess = [];
-  var platformsUnknown = [];
+  const platforms = settings.platforms;
+  const platformsToProcess = [];
+  const platformsUnknown = [];
 
   platforms.forEach(platform => {
 
@@ -146,20 +149,20 @@ function checkPlatforms(settings) {
 
   if (platformsUnknown.length > 0) {
     display.error('Bad platforms: ' + platformsUnknown);
-    return Q.reject('Bad platforms: ' + platformsUnknown);
+    return bluePromise.reject('Bad platforms: ' + platformsUnknown);
   }
 
   display.success('Processing files for: ' + platformsToProcess);
-  return Q.resolve(platformsToProcess);
+  return bluePromise.resolve(platformsToProcess);
 }
 
 function getImages(settings) {
-  var imageObjects = {
+  const imageObjects = {
     icon: null,
     splash: null
   };
 
-  var promise = Q.resolve();
+  let promise = bluePromise.resolve();
 
   if (settings.makeIcon) {
     promise = promise.then(() => checkIconFile(settings.iconFile))
@@ -210,7 +213,7 @@ function getImages(settings) {
 }
 
 function checkOutPutDir(settings) {
-  var dir = settings.outputDirectory;
+  const dir = settings.outputDirectory;
 
   return fs.pathExists(dir)
     .then((exists) => {
@@ -225,25 +228,25 @@ function checkOutPutDir(settings) {
 
 function generateForConfig(imageObj, settings, config) {
   // console.log('[generateForConfig] ',  JSON.stringify(settings, null, 2), JSON.stringify(config, null, 2));
-  var platformPath = path.join(settings.outputDirectory, config.path);
+  const platformPath = path.join(settings.outputDirectory, config.path);
 
-  var transformIcon = (definition) => {
-    var image = imageObj.icon;
+  const transformIcon = (definition) => {
+    const image = imageObj.icon;
 
-    var outputFilePath = path.join(platformPath, definition.name);
-    var outDir = path.dirname(outputFilePath);
+    const outputFilePath = path.join(platformPath, definition.name);
+    const outDir = path.dirname(outputFilePath);
     return fs.ensureDir(outDir).then(() => {
       return image.resize(definition.size, definition.size)
         .toFile(outputFilePath);
     })
   };
 
-  var transformSplash = (definition) => {
-    var image = imageObj.splash;
-    var width = definition.width;
-    var height = definition.height;
-    var outputFilePath = path.join(platformPath, definition.name);
-    var outDir = path.dirname(outputFilePath);
+  const transformSplash = (definition) => {
+    const image = imageObj.splash;
+    const width = definition.width;
+    const height = definition.height;
+    const outputFilePath = path.join(platformPath, definition.name);
+    const outDir = path.dirname(outputFilePath);
 
     return fs.ensureDir(outDir).then(() => {
       return image.resize(width, height)
@@ -254,19 +257,19 @@ function generateForConfig(imageObj, settings, config) {
 
   return fs.ensureDir(platformPath)
     .then(() => {
-      var definitions = config.definitions;
-      var sectionName = 'Generating ' + config.type + ' files for ' + config.platform;
-      var definitionCount = definitions.length;
-      var progressIndex = 0;
+      const definitions = config.definitions;
+      const sectionName = 'Generating ' + config.type + ' files for ' + config.platform;
+      const definitionCount = definitions.length;
+      let progressIndex = 0;
 
-      var gauge = new Gauge();
+      const gauge = new Gauge();
       gauge.show(sectionName, 0);
 
-      return Q.mapSeries(definitions, (def) => {
-        var transformPromise = Q.resolve();
+      return bluePromise.mapSeries(definitions, (def) => {
+        let transformPromise = bluePromise.resolve();
         transformPromise = transformPromise.then(() => {
           progressIndex++;
-          var progressRate = progressIndex / definitionCount;
+          const progressRate = progressIndex / definitionCount;
           gauge.show(sectionName, progressRate);
           gauge.pulse(def.name);
         });
@@ -292,12 +295,12 @@ function generateForConfig(imageObj, settings, config) {
 function generate(imageObj, settings) {
 
   display.header('Generating files');
-  var configs = [];
+  const configs = [];
   g_selectedPlatforms.forEach((platform) => {
     PLATFORMS[platform].definitions.forEach((platformDef) => configs.push(require(platformDef)));
   });
 
-  var filteredConfigs = _.filter(configs, (config) => {
+  const filteredConfigs = _.filter(configs, (config) => {
     if (config.type === 'icon' && settings.makeIcon) {
       return true;
     }
@@ -307,7 +310,7 @@ function generate(imageObj, settings) {
     return false;
   });
 
-  return Q.mapSeries(filteredConfigs, (config) => {
+  return bluePromise.mapSeries(filteredConfigs, (config) => {
     return generateForConfig(imageObj, settings, config);
   })
     .then(() => {
@@ -342,7 +345,7 @@ program
 
 // app settings and default values
 
-var g_settings = {
+const g_settings = {
   iconFile: program.icon || path.join('.', 'resources', 'icon'),
   splashFile: program.splash || path.join('.', 'resources', 'splash'),
   platforms: program.platforms || undefined,
