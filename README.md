@@ -1,11 +1,10 @@
 # cordova-res-generator
-![CircleCI build status](https://img.shields.io/circleci/build/github/sebinbenjamin/cordova-res-generator.svg)
-![Codeclimate Issues](https://img.shields.io/codeclimate/issues/sebinbenjamin/cordova-res-generator.svg)
-![Codeclimate Maintainability](https://img.shields.io/codeclimate/maintainability-percentage/sebinbenjamin/cordova-res-generator.svg)
+[![CircleCI build status](https://img.shields.io/circleci/build/github/sebinbenjamin/cordova-res-generator.svg)](https://circleci.com/gh/sebinbenjamin/cordova-res-generator)
+[![Codeclimate Issues](https://img.shields.io/codeclimate/issues/sebinbenjamin/cordova-res-generator.svg)](https://codeclimate.com/github/sebinbenjamin/cordova-res-generator/issues)
+[![Codeclimate Maintainability](https://img.shields.io/codeclimate/maintainability-percentage/sebinbenjamin/cordova-res-generator.svg)](https://codeclimate.com/github/sebinbenjamin/cordova-res-generator/maintainability)
 [![Depfu](https://badges.depfu.com/badges/e26d90ff99e9d1681c0e0029b003cb9f/overview.svg)](https://depfu.com/github/sebinbenjamin/cordova-res-generator?project_id=8520)
-![Gitter Chay](https://img.shields.io/gitter/room/sebinbenjamin/cordova-res-generator.svg)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=sucess)
-
+[![Gitter Chay](https://img.shields.io/gitter/room/sebinbenjamin/cordova-res-generator.svg?color=blue)](https://gitter.im/cordova-res-generator/community)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ## Introduction
 
