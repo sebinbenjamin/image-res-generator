@@ -10,6 +10,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "res-gen": "./bin/crgen -p android,pwa",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
   },
@@ -44,7 +45,7 @@
     "commander": "^2.20.0",
     "fs-extra": "^7.0.1",
     "gauge": "^2.7.4",
-    "lodash": "^4.17.12",
+    "lodash": "^4.17.13",
     "sharp": "^0.20.8",
     "snyk": "^1.193.0"
   },
