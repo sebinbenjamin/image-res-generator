@@ -12,7 +12,7 @@ const path = require('path');
 const _ = require('lodash');
 const sharp = require('sharp');
 const Gauge = require('gauge');
-const packageJSON = require('./package.json');
+const packageJSON = require('../package.json');
 
 const IMAGE_FORMATS = [
   'svg',
@@ -232,7 +232,6 @@ function checkOutPutDir(settings) {
 
 function check(inputSettings) {
   const settings = { ...inputSettings }; // * TODO: refactor to immutable
-  console.log(settings);
   display.header('Checking files and directories');
 
   let vFile;
@@ -246,16 +245,18 @@ function check(inputSettings) {
     catchErrors(err);
   }
 
-  return updatePlatforms(settings)
-    .then(() => checkPlatforms(settings))
-    // * FIXME:  should be refactored
-    // eslint-disable-next-line no-return-assign
-    .then(selPlatforms => (gSelectedPlatforms = selPlatforms))
-    .then(() => getImages(settings))
-    .then((imageObjects) => {
-      gImageObjects = imageObjects;
-    })
-    .then(() => checkOutPutDir(settings));
+  return (
+    updatePlatforms(settings)
+      .then(() => checkPlatforms(settings))
+      // * FIXME:  should be refactored
+      // eslint-disable-next-line no-return-assign
+      .then(selPlatforms => (gSelectedPlatforms = selPlatforms))
+      .then(() => getImages(settings))
+      .then((imageObjects) => {
+        gImageObjects = imageObjects;
+      })
+      .then(() => checkOutPutDir(settings))
+  );
 }
 
 function generateForConfig(imageObj, settings, config) {
