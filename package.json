@@ -9,19 +9,25 @@
     "cordova-res-generator": "./bin/cordova-res-generator"
   },
   "scripts": {
-    "lint": "eslint \"./**/*.js\"",
+    "lint": "eslint -f table \"./src/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "res-gen": "./bin/crgen -p android,pwa",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "eslint -f table \"./src/**/*.js\""
+    }
+  },
   "repository": {
     "type": "git",
-    "url": "git://github.com/olivab/cordova-res-generator.git"
+    "url": "git://github.com/sebinbenjamin/cordova-res-generator.git"
   },
   "keywords": [
     "cordova",
     "ionic",
+    "pwa",
     "phonegap",
     "icon",
     "splash",
@@ -31,14 +37,14 @@
     "tool"
   ],
   "author": {
-    "name": "Olivab",
-    "email": "olivabdev@gmail.com"
+    "name": "Sebin Benjamin",
+    "email": "sebinbenjamin@gmail.com"
   },
-  "license": "MIT",
+  "license": "GPLv3",
   "bugs": {
-    "url": "https://github.com/olivab/cordova-res-generator/issues"
+    "url": "https://github.com/sebinbenjamin/cordova-res-generator/issues"
   },
-  "homepage": "https://github.com/olivab/cordova-res-generator",
+  "homepage": "https://github.com/sebinbenjamin/cordova-res-generator",
   "dependencies": {
     "babel-eslint": "^10.0.2",
     "bluebird": "^3.5.5",
@@ -52,17 +58,19 @@
   },
   "contributors": [
     {
+      "name": "Sebin Benjamin",
+      "email": "sebinbenjamin@gmail.com"
+    },
+    {
       "name": "Olivab",
       "email": "olivabdev@gmail.com"
     }
   ],
   "devDependencies": {
     "eslint": "^5.16.0",
-    "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.14.2"
+    "husky": "^3.0.1"
   },
   "snyk": true
 }
