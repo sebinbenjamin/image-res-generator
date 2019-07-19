@@ -17,7 +17,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "eslint -f table \"./src/**/*.js\""
+      "pre-commit": "eslint -f table \"./src/**/*.js\"",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "repository": {
@@ -67,6 +68,8 @@
     }
   ],
   "devDependencies": {
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.0",
