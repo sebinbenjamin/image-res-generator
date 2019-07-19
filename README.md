@@ -10,20 +10,17 @@
 
 Automatic icon and splash screen resizing CLI tool for **Cordova**/**Ionic**/**PhoneGap** based applications and PWAs.
 
-It automatically resizes and copies your ```icon.png``` and ```splash.png``` files to platform dedicated directories.
+It automatically resizes and copies your ```icon.png``` and ```splash.png``` files to the platform dedicated directories.
 
 It does **NOT require** any external binary libraries. **Javascript only**.
 
 ---
-
-## Installation
+<!-- ## Installation
 
     $ npm install cordova-res-generator -g
-
----
+--- -->
 
 ## Usage
-
 ### Required files
 
 Add your ```icon.png``` (1024x1024 px) and ```splash.png``` (2732x2732 px) files to the 'resources' folder under the root of your cordova based project.
@@ -46,7 +43,7 @@ or
     -s, --splash [optional]     optional splash file path
                                 (default: ./resources/splash.png)
     -p, --platforms [optional]  optional platform token comma separated list
-                                available tokens: android, ios, windows, blackberry10
+                                available tokens: android, ios, windows, blackberry10, pwa
                                 (default: all platforms processed)
     -o, --outputdir [optional]  optional output directory
                                 (default: ./resources/)
@@ -59,7 +56,7 @@ or
 ## Do yourself a favour
 
 Add to your package.json a script definition to match your file generation needs.
-This way, you won't have to type every now and again the whole command line with its options.
+This way, you won't have to repeat the whole command along with the options.
 
 ### An example
 
@@ -99,6 +96,27 @@ Supported platforms:
 
 ---
 
+## Contributing
+Thanks for your interest in contributing! 
+Read up on our [guidelines](https://github.com/sebinbenjamin/cordova-res-generator/blob/master/CONTRIBUTING.md) to start contributing.
+
+---
+
+## Credits
+This open-source project is made possible with the help and support of the amazing open source community. Special thanks to:
+
+* All contributors in this project ✨💚.
+* [@olivab][1] for creating and maintaining the original project [cordova-res-generator][2].
+* Contributors to [cordova-res-generator][2].
+
+[1]:[https://github.com/olivab]
+[2]:[https://github.com/olivab/cordova-res-generator]
+
+---
+
 ## License
 
-MIT
+This project is made available under the terms of the GPLv3.
+See the [LICENSE.md][license] for the full text of the license.
+
+[license]:[https://github.com/sebinbenjamin/cordova-res-generator/blob/master/LICENSE]
