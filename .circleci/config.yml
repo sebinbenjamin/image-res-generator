@@ -38,4 +38,14 @@ jobs:
       # - run: npm test
 
 
-      # to do - enforce eslint, commit message format, run coverage checks  
+      # TODO: Enforce eslint, commit message format, run coverage checks  
+      # TODO: Add awesome_bot to check URLs in markdown files 
+      # https://github.com/dkhamsing/awesome_bot
+      # machine:
+      #   ruby:
+      #     version: 2.4.1
+      # test:
+      #   pre:
+      #     - gem install awesome_bot
+      #   override:
+      #     - awesome_bot README.md

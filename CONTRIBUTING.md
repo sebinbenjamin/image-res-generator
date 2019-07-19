@@ -70,7 +70,7 @@ Note: The team is unlikely to be able to accept every single feature request tha
 
 ## Project Setup
 
-So you wanna contribute some code! That's great! This project uses GitHub Pull Requests to manage contributions, so [read up on how to fork a GitHub project and file a PR](https://guides.github.com/activities/forking) if you've never done it before.
+So you wanna contribute some code! That's great! This project uses Git workflow and pull requests to manage contributions, so read up on [Git workflow](https://blog.axosoft.com/pull-requests-gitflow/) and [how to fork a GitHub project/filing a PR](https://guides.github.com/activities/forking) if you've never done it before.
 
 To run the project locally:
 
@@ -139,13 +139,21 @@ The main difference between code contributions and documentation contributions i
 
   - Example,
          
-        fix: correct minor typos in code
-        
-        See the issue for details on the typos fixed.
+        feat($compile): simplify isolate scope bindings
 
-        Closes #12
+        Changed the isolate scope binding options to:
+          - @attr - attribute binding (including interpolation)
+          - =model - by-directional model binding
+          - &expr - expression execution binding
 
-  - Commit types recommended include: `fix | perf | test | feat | improvement | refactor | build | ci | revert | chore | docs | style | localize`.
+        This change simplifies the terminology as well as
+        number of choices available to the developer. It
+        also supports local name aliasing from the parent.
+
+        BREAKING CHANGE: isolate scope bindings definition has changed and the inject option for the directive controller injection was removed.
+
+  - Commit types recommended include: `fix(bug fix) | perf(performance related) | test(adding missing tests) | feat(feature) | improvement | refactor | build | ci | revert | chore(maintenance) | docs(documentation) | style(formatting, missing semi colons, …) | localize`.
+
   - Dependency updates, additions, or removals must be in individual commits, and the message must use the format: `type(deps): PKG@VERSION`.
   - A `BREAKING CHANGE:` can be in the footer added to commits of any type to notify introduction of a breaking API change.
   - Closed issues should be listed on a separate line in the footer prefixed with "Closes" keyword like `Closes #234`, or in case of multiple issues like: `Closes #123, #245, #992`
