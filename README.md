@@ -109,8 +109,8 @@ This open-source project is made possible with the help and support of the amazi
 * [@olivab][1] for creating and maintaining the original project [cordova-res-generator][2].
 * Contributors to [cordova-res-generator][2].
 
-[1]:[https://github.com/olivab]
-[2]:[https://github.com/olivab/cordova-res-generator]
+[1]: https://github.com/olivab
+[2]: https://github.com/olivab/cordova-res-generator
 
 ---
 
@@ -119,4 +119,4 @@ This open-source project is made possible with the help and support of the amazi
 This project is made available under the terms of the GPLv3.
 See the [LICENSE.md][license] for the full text of the license.
 
-[license]:[https://github.com/sebinbenjamin/cordova-res-generator/blob/master/LICENSE]
+[license]: https://github.com/sebinbenjamin/cordova-res-generator/blob/master/LICENSE
