@@ -393,7 +393,7 @@ const gSettings = {
 // app entry point
 
 console.log('***************************');
-console.log(`cordova-res-generator ${packageJSON.version}`);
+console.log(`image-res-generator ${packageJSON.version}`);
 console.log('***************************');
 
 check(gSettings)
