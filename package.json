@@ -1,17 +1,17 @@
 {
-  "name": "cordova-res-generator",
+  "name": "image-res-generator",
   "version": "0.6.0",
   "description": "Generates icon & splash screen for cordova/ionic projects using javascript only.",
   "main": "src/index.js",
   "preferGlobal": true,
   "bin": {
-    "crgen": "./bin/crgen",
-    "cordova-res-generator": "./bin/cordova-res-generator"
+    "irgen": "./bin/irgen",
+    "image-res-generator": "./bin/image-res-generator"
   },
   "scripts": {
     "lint": "eslint -f table \"./src/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "res-gen": "./bin/crgen -p android,pwa",
+    "res-gen": "./bin/irgen -p android,pwa",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
   },
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/sebinbenjamin/cordova-res-generator.git"
+    "url": "git://github.com/sebinbenjamin/image-res-generator.git"
   },
   "keywords": [
     "cordova",
@@ -43,9 +43,9 @@
   },
   "license": "GPLv3",
   "bugs": {
-    "url": "https://github.com/sebinbenjamin/cordova-res-generator/issues"
+    "url": "https://github.com/sebinbenjamin/image-res-generator/issues"
   },
-  "homepage": "https://github.com/sebinbenjamin/cordova-res-generator",
+  "homepage": "https://github.com/sebinbenjamin/image-res-generator",
   "dependencies": {
     "babel-eslint": "^10.0.2",
     "bluebird": "^3.5.5",
