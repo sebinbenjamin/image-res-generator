@@ -6,7 +6,7 @@ Removed     - for now, removed features.
 Fixed       - for any bug fixes.
 Security    - in case of vulnerabilities. -->
 
-## [[0.6.2] - 2019-07-20](https://github.com/sebinbenjamin/cordova-res-generator/compare/0.6.1...0.6.2)
+## [[0.6.2] - 2019-07-20](https://github.com/sebinbenjamin/image-res-generator/compare/0.6.1...0.6.2)
 
 ### Added (dev-features)
 - Project contribution guidelines, pull request template, to enable easier contribution.
@@ -16,12 +16,12 @@ Security    - in case of vulnerabilities. -->
 - Updated several dependency packages to their latest versions.
 
 
-## [[0.6.1] - 2019-07-01](https://github.com/sebinbenjamin/cordova-res-generator/compare/0.6.0...0.6.1)
+## [[0.6.1] - 2019-07-01](https://github.com/sebinbenjamin/image-res-generator/compare/0.6.0...0.6.1)
 
 ### Fixed
  - Bug in PWA resources filename character.
 
-## [[0.6.0] - 2019-07-01](https://github.com/sebinbenjamin/cordova-res-generator/compare/0.5.0...0.6.0)
+## [[0.6.0] - 2019-07-01](https://github.com/sebinbenjamin/image-res-generator/compare/0.5.0...0.6.0)
 ### Added
  - Support for Ionic 4 PWA resource generation.
  - Support for SVG file format

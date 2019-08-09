@@ -11,7 +11,7 @@ assignees: ''
 A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 
 **Add labels**
-Add all relevant labels as discussed in https://github.com/sebinbenjamin/cordova-res-generator/blob/latest/CONTRIBUTING.md#label-issues
+Add all relevant labels as discussed in https://github.com/sebinbenjamin/image-res-generator/blob/latest/CONTRIBUTING.md#label-issues
 
 **Describe the solution you'd like**
 A clear and concise description of what you want to happen.

@@ -1,9 +1,9 @@
-# cordova-res-generator
-[![CircleCI build status](https://img.shields.io/circleci/build/github/sebinbenjamin/cordova-res-generator.svg)](https://circleci.com/gh/sebinbenjamin/cordova-res-generator)
-[![Codeclimate Issues](https://img.shields.io/codeclimate/issues/sebinbenjamin/cordova-res-generator.svg)](https://codeclimate.com/github/sebinbenjamin/cordova-res-generator/issues)
-[![Codeclimate Maintainability](https://img.shields.io/codeclimate/maintainability-percentage/sebinbenjamin/cordova-res-generator.svg)](https://codeclimate.com/github/sebinbenjamin/cordova-res-generator/maintainability)
-[![Depfu](https://badges.depfu.com/badges/e26d90ff99e9d1681c0e0029b003cb9f/overview.svg)](https://depfu.com/github/sebinbenjamin/cordova-res-generator?project_id=8520)
-[![Gitter Chay](https://img.shields.io/gitter/room/sebinbenjamin/cordova-res-generator.svg?color=blue)](https://gitter.im/cordova-res-generator/community)
+# image-res-generator
+[![CircleCI build status](https://img.shields.io/circleci/build/github/sebinbenjamin/image-res-generator.svg)](https://circleci.com/gh/sebinbenjamin/image-res-generator)
+[![Codeclimate Issues](https://img.shields.io/codeclimate/issues/sebinbenjamin/image-res-generator.svg)](https://codeclimate.com/github/sebinbenjamin/image-res-generator/issues)
+[![Codeclimate Maintainability](https://img.shields.io/codeclimate/maintainability-percentage/sebinbenjamin/image-res-generator.svg)](https://codeclimate.com/github/sebinbenjamin/image-res-generator/maintainability)
+[![Depfu](https://badges.depfu.com/badges/e26d90ff99e9d1681c0e0029b003cb9f/overview.svg)](https://depfu.com/github/sebinbenjamin/image-res-generator?project_id=8520)
+[![Gitter Chay](https://img.shields.io/gitter/room/sebinbenjamin/image-res-generator.svg?color=blue)](https://gitter.im/image-res-generator/community)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ## Introduction
@@ -17,7 +17,7 @@ It does **NOT require** any external binary libraries. **Javascript only**.
 ---
 <!-- ## Installation
 
-    $ npm install cordova-res-generator -g
+    $ npm install image-res-generator -g
 --- -->
 
 ## Usage
@@ -27,11 +27,11 @@ Add your ```icon.png``` (1024x1024 px) and ```splash.png``` (2732x2732 px) files
 
 ### Command line
 
-    $ cordova-res-generator
+    $ image-res-generator
 
 or
 
-    $ crgen
+    $ irgen
 
 **ATTENTION:** while preserving source files, it overwrites previous output if any.
 
@@ -64,7 +64,7 @@ This way, you won't have to repeat the whole command along with the options.
       ...
       "scripts": {
         ...
-          "resgen": "crgen -p android,ios"
+          "resgen": "irgen -p android,ios"
       }
     }
 
@@ -98,7 +98,7 @@ Supported platforms:
 
 ## Contributing
 Thanks for your interest in contributing! 
-Read up on our [guidelines](https://github.com/sebinbenjamin/cordova-res-generator/blob/master/CONTRIBUTING.md) to start contributing.
+Read up on our [guidelines](https://github.com/sebinbenjamin/image-res-generator/blob/master/CONTRIBUTING.md) to start contributing.
 
 ---
 
@@ -106,17 +106,17 @@ Read up on our [guidelines](https://github.com/sebinbenjamin/cordova-res-generat
 This open-source project is made possible with the help and support of the amazing open source community. Special thanks to:
 
 * All contributors in this project ✨💚.
-* [@olivab][1] for creating and maintaining the original project [cordova-res-generator][2].
-* Contributors to [cordova-res-generator][2].
+* [@olivab][1] for creating and maintaining the original project [image-res-generator][2].
+* Contributors to [image-res-generator][2].
 
 [1]: https://github.com/olivab
-[2]: https://github.com/olivab/cordova-res-generator
+[2]: https://github.com/olivab/image-res-generator
 
 ---
 
 ## License
 
 This project is made available under the terms of the GPLv3.
-See the [LICENSE.md][license] for the full text of the license.
+See the [LICENSE file][license] for the full text of the license.
 
-[license]: https://github.com/sebinbenjamin/cordova-res-generator/blob/master/LICENSE
+[license]: https://github.com/sebinbenjamin/image-res-generator/blob/master/LICENSE

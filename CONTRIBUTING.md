@@ -22,7 +22,7 @@ Thank you so much for your interest in contributing ! See the [table of contents
 
 If you have a question about this project, how to use it, or just need clarification about something:
 
-- Open an Issue at https://github.com/sebinbenjamin/cordova-res-generator/issues
+- Open an Issue at https://github.com/sebinbenjamin/image-res-generator/issues
 - Provide as much context as you can about what you're running into.
 - Provide project and platform versions (nodejs, npm, etc), depending on what seems relevant. If not, please be ready to provide that information if maintainers ask for it.
 
@@ -36,7 +36,7 @@ Once it's filed:
 
 If you run into an error or bug with the project:
 
-- Open an Issue at https://github.com/sebinbenjamin/cordova-res-generator/issues
+- Open an Issue at https://github.com/sebinbenjamin/image-res-generator/issues
 - Include _reproduction steps_ that someone else can follow to recreate the bug or error on their own.
 - Provide project and platform versions (nodejs, npm, etc), depending on what seems relevant. If not, please be ready to provide that information if maintainers ask for it.
 
@@ -56,7 +56,7 @@ Once it's filed:
 
 If the project doesn't do something you need or want it to do:
 
-- Open an Issue at https://github.com/sebinbenjamin/cordova-res-generator/issues
+- Open an Issue at https://github.com/sebinbenjamin/image-res-generator/issues
 - Provide as much context as you can about what you're running into.
 - Please try and be clear about why existing features and alternatives would not work for you.
 
@@ -97,7 +97,7 @@ To contribute documentation:
 - Make sure your changes are formatted correctly and consistently with the rest of the documentation.
 - Re-read what you wrote, and run a spellchecker on it to make sure you didn't miss anything.
 - Write clear, concise commit message(s) using [conventional-changelog format](https://github.com/conventional-changelog/conventional-changelog-angular/blob/master/convention.md). Documentation commits should use `docs(<component>): <message>`.
-- Go to https://github.com/sebinbenjamin/cordova-res-generator/pulls and open a new pull request with your changes.
+- Go to https://github.com/sebinbenjamin/image-res-generator/pulls and open a new pull request with your changes.
 - If your PR is connected to an open issue, add a line in your PR's description that says `Fixes: #123`, where `#123` is the number of the issue you're fixing.
 
 Once you've filed the PR:
@@ -120,7 +120,7 @@ The main difference between code contributions and documentation contributions i
 - Include any [additional documentation](#contribute-documentation) the changes might need.
 - Write tests that verify that your contribution works as expected.
 - Write clear, concise commit message(s) as per [conventional commits specification](https://www.conventionalcommits.org).
-- Go to https://github.com/sebinbenjamin/cordova-res-generator/pulls and open a new pull request with your changes.
+- Go to https://github.com/sebinbenjamin/image-res-generator/pulls and open a new pull request with your changes.
 - If your PR is connected to an open issue, add a line in your PR's description that says `Fixes: #123`, where `#123` is the number of the issue you're fixing.
 
 #### Conventional Commits
@@ -152,7 +152,7 @@ The main difference between code contributions and documentation contributions i
 
         BREAKING CHANGE: isolate scope bindings definition has changed and the inject option for the directive controller injection was removed.
 
-  - Commit types recommended include: `fix(bug fix) | perf(performance related) | test(adding missing tests) | feat(feature) | improvement | refactor | build | ci | revert | chore(maintenance) | docs(documentation) | style(formatting, missing semi colons, …) | localize`.
+  - Commit types recommended include: `fix(bug fix) | perf(performance related) | test(adding missing tests) | feat(feature) | improvement | refactor | build | ci | revert | chore(maintenance) | docs(documentation) | style(formatting, missing semi colons, …) | localize | security`.
 
   - Dependency updates, additions, or removals must be in individual commits, and the message must use the format: `type(deps): PKG@VERSION`.
   - A `BREAKING CHANGE:` can be in the footer added to commits of any type to notify introduction of a breaking API change.
@@ -169,7 +169,7 @@ Once you've filed the PR:
 ## Label Issues
 One of the most important tasks in handling issues is labeling them usefully and accurately. All other tasks involving issues ultimately rely on the issue being classified in such a way that relevant parties looking to do their own tasks can find them quickly and easily.
 
-In order to label issues, [open up the list of unlabeled issues](https://github.com/wealljs/weallcontribute/issues?q=is%3Aopen+is%3Aissue+no%3Alabel) and, **from newest to oldest**, read through each one and apply issue labels according to the table below. If you're unsure about what label to apply, skip the issue and try the next one: don't feel obligated to label each and every issue yourself!
+In order to label issues, [open up the list of unlabeled issues](https://github.com/sebinbenjamin/image-res-generator/issues?q=is%3Aopen+is%3Aissue+no%3Alabel) and, **from newest to oldest**, read through each one and apply issue labels according to the table below. If you're unsure about what label to apply, skip the issue and try the next one: don't feel obligated to label each and every issue yourself!
 
 Label | Apply When | Notes
 --- | --- | ---
