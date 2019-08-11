@@ -106,11 +106,11 @@ Read up on our [guidelines](https://github.com/sebinbenjamin/image-res-generator
 This open-source project is made possible with the help and support of the amazing open source community. Special thanks to:
 
 * All contributors in this project ✨💚.
-* [@olivab][1] for creating and maintaining the original project [image-res-generator][2].
-* Contributors to [image-res-generator][2].
+* [@olivab][1] for creating and maintaining the original project [cordova-res-generator][2].
+* Contributors to [cordova-res-generator][2].
 
 [1]: https://github.com/olivab
-[2]: https://github.com/olivab/image-res-generator
+[2]: https://github.com/olivab/cordova-res-generator
 
 ---
 
