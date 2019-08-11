@@ -1,7 +1,7 @@
 {
   "name": "image-res-generator",
-  "version": "0.6.0",
-  "description": "Generates icon & splash screen for cordova/ionic projects using javascript only.",
+  "version": "0.6.2",
+  "description": "Generates icon & splash screen for iOS, Android and other major platforms using javascript only.",
   "main": "src/index.js",
   "preferGlobal": true,
   "bin": {
