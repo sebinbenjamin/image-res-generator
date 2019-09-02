@@ -1,5 +1,5 @@
 // app main constiables and constants
-const PLATFORMS = {
+const PLATFORM_DEFS = {
   android: {
     definitions: ['../config/icons/android', '../config/splash/android'],
   },
@@ -16,4 +16,7 @@ const PLATFORMS = {
     definitions: ['../config/icons/pwa.js'],
   },
 };
-module.exports = PLATFORMS;
+const PLATFORMS = ['android', 'ios', 'windows', 'blackberry10', 'pwa'];
+
+exports.PLATFORM_DEFS = PLATFORM_DEFS;
+exports.PLATFORMS = PLATFORMS;

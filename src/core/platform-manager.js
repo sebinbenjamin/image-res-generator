@@ -1,13 +1,13 @@
 /* eslint-disable no-restricted-syntax */
 const bluePromise = require('bluebird');
 
-const PLATFORMS = require('../constants/platforms');
+const { PLATFORM_DEFS, PLATFORMS } = require('../constants/platforms');
 const { display } = require('../utils/display');
 
 function checkPlatforms(settings) {
   if (!settings.platforms || !Array.isArray(settings.platforms)) {
     display.success('Processing files for all platforms');
-    return bluePromise.resolve(platformsKeys);
+    return bluePromise.resolve(PLATFORMS);
   }
 
   const { platforms } = settings;
@@ -34,19 +34,19 @@ function checkPlatforms(settings) {
 // app functions
 function updatePlatforms(settings) {
   if (settings.configPath) {
-    for (const platform in PLATFORMS) {
-      if (Object.prototype.hasOwnProperty.call(PLATFORMS, platform)) {
-        const iconConfig = PLATFORMS[platform].definitions[0];
+    for (const platform in PLATFORM_DEFS) {
+      if (Object.prototype.hasOwnProperty.call(PLATFORM_DEFS, platform)) {
+        const iconConfig = PLATFORM_DEFS[platform].definitions[0];
         if (iconConfig) {
-          PLATFORMS[platform].definitions[0] = iconConfig.replace(
+          PLATFORM_DEFS[platform].definitions[0] = iconConfig.replace(
             './platforms',
             settings.configPath,
           );
         }
 
-        const splashConfig = PLATFORMS[platform].definitions[1];
+        const splashConfig = PLATFORM_DEFS[platform].definitions[1];
         if (splashConfig) {
-          PLATFORMS[platform].definitions[1] = splashConfig.replace(
+          PLATFORM_DEFS[platform].definitions[1] = splashConfig.replace(
             './platforms',
             settings.configPath,
           );

@@ -5,7 +5,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const sharp = require('sharp');
 
-const PLATFORMS = require('../constants/platforms');
+const { PLATFORM_DEFS } = require('../constants/platforms');
 const { display } = require('../utils/display');
 
 function generateForConfig(imageObj, settings, config) {
@@ -83,7 +83,7 @@ function generate(imageObj, settings, gSelectedPlatforms) {
   // * TO DO: Refactor if possible
   gSelectedPlatforms.forEach((platform) => {
     // eslint-disable-next-line import/no-dynamic-require
-    PLATFORMS[platform].definitions.forEach(platformDef => configs.push(require(platformDef)));
+    PLATFORM_DEFS[platform].definitions.forEach(platformDef => configs.push(require(platformDef)));
   });
 
   const filteredConfigs = configs.filter((config) => {
