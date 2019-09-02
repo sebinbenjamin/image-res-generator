@@ -16,7 +16,6 @@ let gImageObjects;
 let gSelectedPlatforms = [];
 
 function initApp(initSettings) {
-  console.log('***Initalizing app***', initSettings);
   const settings = { ...initSettings }; // * TODO: refactor to immutable
   checkInputFiles(settings);
   return (

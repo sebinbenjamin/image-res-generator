@@ -1,13 +1,10 @@
 /* eslint-disable no-restricted-syntax */
 const bluePromise = require('bluebird');
-const _ = require('lodash');
 
 const PLATFORMS = require('../constants/platforms');
 const { display } = require('../utils/display');
 
 function checkPlatforms(settings) {
-  const platformsKeys = _.keys(PLATFORMS);
-
   if (!settings.platforms || !Array.isArray(settings.platforms)) {
     display.success('Processing files for all platforms');
     return bluePromise.resolve(platformsKeys);
@@ -18,7 +15,7 @@ function checkPlatforms(settings) {
   const platformsUnknown = [];
 
   platforms.forEach((platform) => {
-    if (_.find(platformsKeys, p => platform === p)) {
+    if (PLATFORMS.find(p => platform === p)) {
       platformsToProcess.push(platform);
     } else {
       platformsUnknown.push(platform);

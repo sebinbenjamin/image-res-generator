@@ -1,6 +1,5 @@
 /* eslint-disable global-require */
 const bluePromise = require('bluebird');
-const _ = require('lodash');
 const Gauge = require('gauge');
 const fs = require('fs-extra');
 const path = require('path');
@@ -87,7 +86,7 @@ function generate(imageObj, settings, gSelectedPlatforms) {
     PLATFORMS[platform].definitions.forEach(platformDef => configs.push(require(platformDef)));
   });
 
-  const filteredConfigs = _.filter(configs, (config) => {
+  const filteredConfigs = configs.filter((config) => {
     if (config.type === 'icon' && settings.makeIcon) {
       return true;
     }
