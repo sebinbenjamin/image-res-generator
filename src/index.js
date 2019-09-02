@@ -4,33 +4,21 @@
 /* eslint-disable no-console */
 
 const packageJSON = require('../package.json');
-const { getValidFileName, checkOutPutDir } = require('./core/fs-manager');
+const { checkInputFiles, checkOutPutDir } = require('./core/fs-manager');
 const { checkPlatforms, updatePlatforms } = require('./core/platform-manager');
 const { getImages } = require('./core/image-manager');
 const { generate } = require('./core/generator');
 
-const { display } = require('./utils/display');
-const { gSettings } = require('./utils/cli');
+const { cliParams } = require('./utils/cli');
 const { catchErrors } = require('./utils/error-handlers');
 
 let gImageObjects;
 let gSelectedPlatforms = [];
 
-function checkInputsAndProcess(inputSettings) {
-  const settings = { ...inputSettings }; // * TODO: refactor to immutable
-  display.header('Checking files and directories');
-
-  let vFile;
-  try {
-    vFile = getValidFileName(settings.iconFile);
-    settings.iconFile = vFile;
-
-    vFile = getValidFileName(settings.splashFile);
-    settings.splashFile = vFile;
-  } catch (err) {
-    catchErrors(err);
-  }
-
+function initApp(initSettings) {
+  console.log('***Initalizing app***', initSettings);
+  const settings = { ...initSettings }; // * TODO: refactor to immutable
+  checkInputFiles(settings);
   return (
     updatePlatforms(settings)
       .then(() => checkPlatforms(settings))
@@ -50,6 +38,6 @@ console.log('***************************');
 console.log(`image-res-generator ${packageJSON.version}`);
 console.log('***************************');
 
-checkInputsAndProcess(gSettings)
-  .then(() => generate(gImageObjects, gSettings, gSelectedPlatforms))
+initApp(cliParams)
+  .then(() => generate(gImageObjects, cliParams, gSelectedPlatforms))
   .catch(err => catchErrors(err));

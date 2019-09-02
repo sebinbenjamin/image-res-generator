@@ -23,15 +23,24 @@ It does **NOT require** any external binary libraries. **Javascript only**.
 ## Usage
 ### Required files
 
-Add your ```icon.png``` (1024x1024 px) and ```splash.png``` (2732x2732 px) files to the 'resources' folder under the root of your cordova based project.
+Add your ```icon```  and ```splash```  files to the 'resources' folder under the root of your project. Make sure they are atleast (1024px x 1024px) for icons and (2732px x 2732px) for splash images. 
+
+```
+resources/
+├── icon.png
+└── splash.png
+```
 
 ### Command line
 
+```bash
     $ image-res-generator
-
+```
 or
 
+```bash
     $ irgen
+```
 
 **ATTENTION:** while preserving source files, it overwrites previous output if any.
 
@@ -50,6 +59,7 @@ or
     -I, --makeicon [optional]   option to process icon files only
     -S, --makesplash [optional] option to process splash files only
     -h, --help                  output usage information
+    -d, --debug                 output debugging information
 
 ---
 
