@@ -1,18 +1,8 @@
+/* eslint-disable no-console */
 const program = require('commander');
 const path = require('path');
 
 const packageJSON = require('../../package.json');
-
-// app settings and default values
-const gSettings = {
-  iconFile: program.icon || path.join('.', 'resources', 'icon'),
-  splashFile: program.splash || path.join('.', 'resources', 'splash'),
-  platforms: program.platforms || undefined,
-  outputDirectory: program.outputDir || path.join('.', 'resources'),
-  makeIcon: !!(program.makeIcon || (!program.makeIcon && !program.makeSplash)),
-  makeSplash: !!(program.makeSplash || (!program.makeIcon && !program.makeSplash)),
-  configPath: program.configPath || undefined,
-};
 
 program
   .version(packageJSON.version)
@@ -21,7 +11,7 @@ program
   .option('-s, --splash [optional]', 'optional splash file path (default: ./resources/splash)')
   .option(
     '-p, --platforms [optional]',
-    'optional platform token comma separated list (default: all platforms processed)',
+    'optional platform token comma separated list [android,ios,windows,blackberry10,pwa] (default: all platforms processed)',
     platformList => platformList.split(','),
   )
   .option('-o, --outputDir [optional]', 'optional output directory (default: ./resources/)')
@@ -31,6 +21,20 @@ program
     '--configPath [optional]',
     'option to change the default config path (default: ./platforms)',
   )
+  .option('-d, --debug', 'output extra debugging')
   .parse(process.argv);
 
-exports.gSettings = gSettings;
+if (program.debug) console.log(program.opts());
+
+// app settings and default values
+const cliParams = {
+  iconFile: program.icon || path.join('.', 'resources', 'icon'),
+  splashFile: program.splash || path.join('.', 'resources', 'splash'),
+  platforms: program.platforms || undefined,
+  outputDirectory: program.outputDir || path.join('.', 'resources'),
+  makeIcon: !!(program.makeIcon || (!program.makeIcon && !program.makeSplash)),
+  makeSplash: !!(program.makeSplash || (!program.makeIcon && !program.makeSplash)),
+  configPath: program.configPath || undefined,
+};
+
+exports.cliParams = cliParams;

@@ -1,7 +1,9 @@
+/* eslint-disable no-param-reassign */
 const fs = require('fs-extra');
 const path = require('path');
 const { IMAGE_FORMATS } = require('../constants/image-formats');
 const { display } = require('../utils/display');
+const { catchErrors } = require('../utils/error-handlers');
 
 function isSupportedFormat(fileName) {
   let vExt = path.extname(fileName);
@@ -37,6 +39,21 @@ function getValidFileName(inputFileName) {
   return result;
 }
 
+function checkInputFiles(settings) {
+  display.header('Checking files and directories');
+
+  let vFile;
+  try {
+    vFile = getValidFileName(settings.iconFile);
+    settings.iconFile = vFile;
+
+    vFile = getValidFileName(settings.splashFile);
+    settings.splashFile = vFile;
+  } catch (err) {
+    catchErrors(err);
+  }
+}
+
 function checkOutPutDir(settings) {
   const dir = settings.outputDirectory;
 
@@ -52,3 +69,4 @@ function checkOutPutDir(settings) {
 
 exports.checkOutPutDir = checkOutPutDir;
 exports.getValidFileName = getValidFileName;
+exports.checkInputFiles = checkInputFiles;
