@@ -31,6 +31,9 @@ program
     '--configPath [optional]',
     'option to change the default config path (default: ./platforms)',
   )
+  .option('-d, --debug', 'output extra debugging')
   .parse(process.argv);
+
+if (program.debug) console.log(program.opts());
 
 exports.gSettings = gSettings;
