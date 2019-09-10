@@ -1,6 +1,5 @@
 /* eslint-disable global-require */
 const bluePromise = require('bluebird');
-const Gauge = require('gauge');
 const fs = require('fs-extra');
 const path = require('path');
 const sharp = require('sharp');
@@ -8,70 +7,81 @@ const sharp = require('sharp');
 const { PLATFORM_DEFS } = require('../constants/platforms');
 const { display } = require('../utils/display');
 
+const transformIcon = (definition, platformPath, imageObj, type, platform) => {
+  const image = imageObj.icon;
+  const outputFilePath = path.join(platformPath, definition.name);
+  const outDir = path.dirname(outputFilePath);
+  return fs
+    .ensureDir(outDir)
+    .then(() => image.resize(definition.size, definition.size).toFile(outputFilePath))
+    .then(() => Promise.resolve({
+      config: {
+        type,
+        platform,
+      },
+    }));
+};
+
+const transformSplash = (definition, platformPath, imageObj, type, platform) => {
+  const image = imageObj.splash;
+  const { width } = definition;
+  const { height } = definition;
+  const outputFilePath = path.join(platformPath, definition.name);
+  const outDir = path.dirname(outputFilePath);
+
+  return fs
+    .ensureDir(outDir)
+    .then(() => image
+      .resize(width, height)
+      .crop(sharp.strategy.entropy)
+      .toFile(outputFilePath))
+    .then(() => Promise.resolve({
+      config: {
+        type,
+        platform,
+      },
+    }));
+};
+
 function generateForConfig(imageObj, settings, config) {
   // console.log('[generateForConfig] ',  JSON.stringify(settings, null, 2),
   //  JSON.stringify(config, null, 2));
   const platformPath = path.join(settings.outputDirectory, config.path);
 
-  const transformIcon = (definition) => {
-    const image = imageObj.icon;
-
-    const outputFilePath = path.join(platformPath, definition.name);
-    const outDir = path.dirname(outputFilePath);
-    return fs
-      .ensureDir(outDir)
-      .then(() => image.resize(definition.size, definition.size).toFile(outputFilePath));
-  };
-
-  const transformSplash = (definition) => {
-    const image = imageObj.splash;
-    const { width } = definition;
-    const { height } = definition;
-    const outputFilePath = path.join(platformPath, definition.name);
-    const outDir = path.dirname(outputFilePath);
-
-    return fs.ensureDir(outDir).then(() => image
-      .resize(width, height)
-      .crop(sharp.strategy.entropy)
-      .toFile(outputFilePath));
-  };
-
   return fs.ensureDir(platformPath).then(() => {
+    // const sectionName = `Generating ${config.type} files for ${config.platform}`;
     const { definitions } = config;
-    const sectionName = `Generating ${config.type} files for ${config.platform}`;
-    const definitionCount = definitions.length;
-    let progressIndex = 0;
-
-    const gauge = new Gauge();
-    gauge.show(sectionName, 0);
-
-    return bluePromise
-      .mapSeries(definitions, (def) => {
-        let transformPromise = bluePromise.resolve();
-        transformPromise = transformPromise.then(() => {
-          progressIndex += 1;
-          const progressRate = progressIndex / definitionCount;
-          gauge.show(sectionName, progressRate);
-          gauge.pulse(def.name);
-        });
-        switch (config.type) {
-          case 'icon':
-            transformPromise = transformPromise.then(() => transformIcon(def));
-            break;
-          case 'splash':
-            transformPromise = transformPromise.then(() => transformSplash(def));
-            break;
-          default:
-            throw new Error(`Unknown config type ${config.type} received !`);
-        }
-        return transformPromise;
-      })
+    const promiseArrayIcons = [];
+    const promiseArraySplash = [];
+    console.log(`Processing ${config.platform} ${config.type} files ...`);
+    definitions.forEach((def) => {
+      switch (config.type) {
+        case 'icon':
+          promiseArraySplash.push(
+            transformIcon(def, platformPath, imageObj, config.type, config.platform),
+          );
+          break;
+        case 'splash':
+          promiseArraySplash.push(
+            transformSplash(def, platformPath, imageObj, config.type, config.platform),
+          );
+          break;
+        default:
+          throw new Error(`Unknown config type ${config.type} received !`);
+      }
+    });
+    Promise.all(promiseArrayIcons)
       .then(() => {
-        gauge.disable();
-        display.success(`Generated ${config.type} files for ${config.platform}`);
+        if (config.type === 'icon') display.success(`Generated ${config.type} files for ${config.platform}`);
       })
       .catch((err) => {
-        gauge.disable();
+        throw err;
+      });
+    Promise.all(promiseArraySplash)
+      .then(() => {
+        if (config.type === 'splash') display.success(`Generated ${config.type} files for ${config.platform}`);
+      })
+      .catch((err) => {
         throw err;
       });
   });
@@ -79,6 +89,7 @@ function generateForConfig(imageObj, settings, config) {
 
 function generate(imageObj, settings, gSelectedPlatforms) {
   display.header('Generating files');
+  display.info('=================');
   const configs = [];
   // * TO DO: Refactor if possible
   gSelectedPlatforms.forEach((platform) => {

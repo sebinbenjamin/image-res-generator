@@ -42,6 +42,7 @@ function getValidFileName(inputFileName) {
 
 function checkInputFiles(settings) {
   display.header('Checking files and directories');
+  display.info('==================================');
 
   let vFile;
   try {
