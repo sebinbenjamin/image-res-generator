@@ -1,5 +1,4 @@
 /* eslint-disable no-restricted-syntax */
-const bluePromise = require('bluebird');
 
 const { PLATFORM_DEFS, PLATFORMS } = require('../constants/platforms');
 const { display } = require('../utils/display');
@@ -7,7 +6,7 @@ const { display } = require('../utils/display');
 function checkPlatforms(settings) {
   if (!settings.platforms || !Array.isArray(settings.platforms)) {
     display.success('Processing files for all platforms');
-    return bluePromise.resolve(PLATFORMS);
+    return Promise.resolve(PLATFORMS);
   }
 
   const { platforms } = settings;
@@ -24,11 +23,11 @@ function checkPlatforms(settings) {
 
   if (platformsUnknown.length > 0) {
     display.error(`Bad platforms: ${platformsUnknown}`);
-    return bluePromise.reject(`Bad platforms: ${platformsUnknown}`);
+    return Promise.reject(new Error(`Bad platforms: ${platformsUnknown}`));
   }
 
   display.success(`Processing files for: ${platformsToProcess}`);
-  return bluePromise.resolve(platformsToProcess);
+  return Promise.resolve(platformsToProcess);
 }
 
 // app functions
@@ -54,7 +53,7 @@ function updatePlatforms(settings) {
       }
     }
   }
-  return bluePromise.resolve(settings);
+  return Promise.resolve(settings);
 }
 
 exports.checkPlatforms = checkPlatforms;
