@@ -52,7 +52,7 @@
     "commander": "^2.20.0",
     "fs-extra": "^8.1.0",
     "sharp": "^0.20.8",
-    "snyk": "^1.221.1"
+    "snyk": "^1.227.0"
   },
   "contributors": [
     {
