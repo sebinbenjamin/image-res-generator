@@ -1,5 +1,4 @@
 const sharp = require('sharp');
-const bluePromise = require('bluebird');
 
 const { display } = require('../utils/display');
 
@@ -31,29 +30,23 @@ function checkSplashFile(splashFileName) {
   });
 }
 
-function getImages(settings) {
+function getIconAndSplashSrc(settings) {
   const imageObjects = {
     icon: null,
     splash: null,
   };
 
-  let promise = bluePromise.resolve();
-
   if (settings.makeIcon) {
-    promise = promise
-      .then(() => checkIconFile(settings.iconFile))
-      .then((image) => {
-        imageObjects.icon = image;
-      });
+    checkIconFile(settings.iconFile).then((image) => {
+      imageObjects.icon = image;
+    });
   }
   if (settings.makeSplash) {
-    promise = promise
-      .then(() => checkSplashFile(settings.splashFile))
-      .then((image) => {
-        imageObjects.splash = image;
-      });
+    checkSplashFile(settings.splashFile).then((image) => {
+      imageObjects.splash = image;
+    });
   }
-  return promise.then(() => imageObjects);
+  return imageObjects;
 }
 
-exports.getImages = getImages;
+exports.getIconAndSplashSrc = getIconAndSplashSrc;

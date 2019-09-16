@@ -6,7 +6,7 @@
 const packageJSON = require('../package.json');
 const { checkInputFiles, checkOutPutDir } = require('./core/fs-manager');
 const { checkPlatforms, updatePlatforms } = require('./core/platform-manager');
-const { getImages } = require('./core/image-manager');
+const { getIconAndSplashSrc } = require('./core/image-manager');
 const { generate } = require('./core/generator');
 
 const { cliParams } = require('./utils/cli');
@@ -16,7 +16,6 @@ let gImageObjects;
 let gSelectedPlatforms = [];
 
 function initApp(initSettings) {
-  console.log('***Initalizing app***', initSettings);
   const settings = { ...initSettings }; // * TODO: refactor to immutable
   checkInputFiles(settings);
   return (
@@ -25,7 +24,7 @@ function initApp(initSettings) {
       // * FIXME:  should be refactored
       // eslint-disable-next-line no-return-assign
       .then(selPlatforms => (gSelectedPlatforms = selPlatforms))
-      .then(() => getImages(settings))
+      .then(() => getIconAndSplashSrc(settings))
       .then((imageObjects) => {
         gImageObjects = imageObjects;
       })

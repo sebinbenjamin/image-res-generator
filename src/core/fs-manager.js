@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 const fs = require('fs-extra');
 const path = require('path');
+
 const { IMAGE_FORMATS } = require('../constants/image-formats');
 const { display } = require('../utils/display');
 const { catchErrors } = require('../utils/error-handlers');
@@ -41,6 +42,7 @@ function getValidFileName(inputFileName) {
 
 function checkInputFiles(settings) {
   display.header('Checking files and directories');
+  display.info('==================================');
 
   let vFile;
   try {
