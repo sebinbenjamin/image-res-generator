@@ -41,7 +41,7 @@
     "name": "Sebin Benjamin",
     "email": "sebinbenjamin@gmail.com"
   },
-  "license": "GPLv3",
+  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/sebinbenjamin/image-res-generator/issues"
   },
