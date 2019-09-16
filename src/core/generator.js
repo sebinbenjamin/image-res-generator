@@ -1,5 +1,4 @@
 /* eslint-disable global-require */
-const bluePromise = require('bluebird');
 const fs = require('fs-extra');
 const path = require('path');
 const sharp = require('sharp');
@@ -44,8 +43,6 @@ const transformSplash = (definition, platformPath, imageObj, type, platform) => 
 };
 
 function generateForConfig(imageObj, settings, config) {
-  // console.log('[generateForConfig] ',  JSON.stringify(settings, null, 2),
-  //  JSON.stringify(config, null, 2));
   const platformPath = path.join(settings.outputDirectory, config.path);
 
   return fs.ensureDir(platformPath).then(() => {
@@ -53,11 +50,12 @@ function generateForConfig(imageObj, settings, config) {
     const { definitions } = config;
     const promiseArrayIcons = [];
     const promiseArraySplash = [];
+    // eslint-disable-next-line no-console
     console.log(`Processing ${config.platform} ${config.type} files ...`);
     definitions.forEach((def) => {
       switch (config.type) {
         case 'icon':
-          promiseArraySplash.push(
+          promiseArrayIcons.push(
             transformIcon(def, platformPath, imageObj, config.type, config.platform),
           );
           break;
@@ -70,20 +68,32 @@ function generateForConfig(imageObj, settings, config) {
           throw new Error(`Unknown config type ${config.type} received !`);
       }
     });
-    Promise.all(promiseArrayIcons)
-      .then(() => {
-        if (config.type === 'icon') display.success(`Generated ${config.type} files for ${config.platform}`);
-      })
-      .catch((err) => {
-        throw err;
-      });
-    Promise.all(promiseArraySplash)
-      .then(() => {
-        if (config.type === 'splash') display.success(`Generated ${config.type} files for ${config.platform}`);
-      })
-      .catch((err) => {
-        throw err;
-      });
+
+    // * TODO: make generateForConfig return promises properly
+    if (promiseArrayIcons.length) {
+      Promise.all(promiseArrayIcons)
+        .then((success) => {
+          const configType = success[0].config.type;
+          const configPlatform = success[0].config.platform;
+          display.success(`Generated ${configType} files for ${configPlatform}`);
+        })
+        .catch((err) => {
+          // console.error('ERROR', err);
+          throw err;
+        });
+    }
+    if (promiseArraySplash.length) {
+      Promise.all(promiseArraySplash)
+        .then((success) => {
+          const configType = success[0].config.type;
+          const configPlatform = success[0].config.platform;
+          display.success(`Generated ${configType} files for ${configPlatform}`);
+        })
+        .catch((err) => {
+          // console.error('ERROR', err);
+          throw err;
+        });
+    }
   });
 }
 
@@ -98,19 +108,10 @@ function generate(imageObj, settings, gSelectedPlatforms) {
   });
 
   const filteredConfigs = configs.filter((config) => {
-    if (config.type === 'icon' && settings.makeIcon) {
-      return true;
-    }
-    if (config.type === 'splash' && settings.makeSplash) {
-      return true;
-    }
+    if (config.type === 'icon' && settings.makeIcon) return true;
+    if (config.type === 'splash' && settings.makeSplash) return true;
     return false;
   });
-
-  return bluePromise
-    .mapSeries(filteredConfigs, config => generateForConfig(imageObj, settings, config))
-    .then(() => {
-      // display.success("Successfully generated all files");
-    });
+  return filteredConfigs.forEach(config => generateForConfig(imageObj, settings, config));
 }
 exports.generate = generate;
