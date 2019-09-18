@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 function catchErrors(err) {
   if (err) {
     console.log('Error: ', err.message);

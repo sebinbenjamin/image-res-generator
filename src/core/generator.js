@@ -103,8 +103,10 @@ function generate(imageObj, settings, gSelectedPlatforms) {
   const configs = [];
   // * TO DO: Refactor if possible
   gSelectedPlatforms.forEach((platform) => {
-    // eslint-disable-next-line import/no-dynamic-require
-    PLATFORM_DEFS[platform].definitions.forEach(platformDef => configs.push(require(platformDef)));
+    PLATFORM_DEFS[platform].definitions.forEach(
+      // eslint-disable-next-line import/no-dynamic-require
+      (platformDef) => configs.push(require(platformDef)),
+    );
   });
 
   const filteredConfigs = configs.filter((config) => {
@@ -112,6 +114,6 @@ function generate(imageObj, settings, gSelectedPlatforms) {
     if (config.type === 'splash' && settings.makeSplash) return true;
     return false;
   });
-  return filteredConfigs.forEach(config => generateForConfig(imageObj, settings, config));
+  return filteredConfigs.forEach((config) => generateForConfig(imageObj, settings, config));
 }
 exports.generate = generate;
