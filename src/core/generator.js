@@ -40,14 +40,13 @@ const transformSplash = (definition, platformPath, imageObj, type, platform) => 
 
 function generateForConfig(imageObj, settings, config) {
   const platformPath = path.join(settings.outputDirectory, config.path);
-
   return fs.ensureDir(platformPath).then(() => {
     // const sectionName = `Generating ${config.type} files for ${config.platform}`;
     const { definitions } = config;
     const promiseArrayIcons = [];
     const promiseArraySplash = [];
     // eslint-disable-next-line no-console
-    console.log(`Processing ${config.platform} ${config.type} files ...`);
+    display.info(`Processing ${config.platform} ${config.type} files ...`);
     definitions.forEach((def) => {
       switch (config.type) {
         case 'icon':

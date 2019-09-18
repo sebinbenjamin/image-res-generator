@@ -33,9 +33,9 @@ function initApp(initSettings) {
 }
 
 // app entry point
-console.log('***************************');
-console.log(`image-res-generator ${packageJSON.version}`);
-console.log('***************************');
+console.info('***************************');
+console.info(`image-res-generator ${packageJSON.version}`);
+console.info('***************************');
 
 initApp(cliParams)
   .then(() => generate(gImageObjects, cliParams, gSelectedPlatforms))
