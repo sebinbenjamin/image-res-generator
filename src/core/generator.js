@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
 const fs = require('fs-extra');
 const path = require('path');
-const sharp = require('sharp');
 
 const { PLATFORM_DEFS } = require('../constants/platforms');
 const { display } = require('../utils/display');
@@ -30,10 +29,7 @@ const transformSplash = (definition, platformPath, imageObj, type, platform) => 
 
   return fs
     .ensureDir(outDir)
-    .then(() => image
-      .resize(width, height)
-      .crop(sharp.strategy.entropy)
-      .toFile(outputFilePath))
+    .then(() => image.resize({ width, height, position: 'centre' }).toFile(outputFilePath))
     .then(() => Promise.resolve({
       config: {
         type,
