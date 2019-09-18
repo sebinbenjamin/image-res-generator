@@ -18,11 +18,11 @@ function checkPlatforms(settings) {
   const platformsToProcess = [];
   const platformsUnknown = [];
 
-  platforms.forEach((platform) => {
-    if (PLATFORMS.find((p) => platform === p)) {
-      platformsToProcess.push(platform);
+  platforms.forEach((requestedPlatform) => {
+    if (PLATFORMS.find((availablePlatform) => requestedPlatform === availablePlatform)) {
+      platformsToProcess.push(requestedPlatform);
     } else {
-      platformsUnknown.push(platform);
+      platformsUnknown.push(requestedPlatform);
     }
   });
 
