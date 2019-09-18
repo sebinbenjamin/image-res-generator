@@ -6,6 +6,11 @@ const { IMAGE_FORMATS } = require('../constants/image-formats');
 const { display } = require('../utils/display');
 const { catchErrors } = require('../utils/error-handlers');
 
+/**
+ * checks if file extension is in the supported IMAGE_FORMATS
+ * @param {*} fileName ???
+ * @return {Boolean}
+ */
 function isSupportedFormat(fileName) {
   let vExt = path.extname(fileName);
   //* TODO: refactor if/return logic
@@ -16,6 +21,11 @@ function isSupportedFormat(fileName) {
   return false;
 }
 
+/**
+ * Verifies and returns file extension support, if file exists
+ * @param inputFileName {string}
+ * @return {string} returns a valid filename.ext
+ */
 function getValidFileName(inputFileName) {
   let fileName = inputFileName.slice(); // * TODO: refactor to immutable
   let result;
@@ -40,6 +50,10 @@ function getValidFileName(inputFileName) {
   return result;
 }
 
+/**
+ * Checks if input iconFile and splashFile are valid
+ * @param initSettings  {JSON}
+ */
 function checkInputFiles(settings) {
   display.header('Checking files and directories');
   display.info('==================================');
@@ -56,6 +70,11 @@ function checkInputFiles(settings) {
   }
 }
 
+/**
+ * Checks if `settings.outputDirectory` exists
+ * @param initSettings  {JSON}
+ * @returns {Promise<Boolean>} promise which resolves to true if dir exists, else false
+ */
 function checkOutPutDir(settings) {
   const dir = settings.outputDirectory;
 

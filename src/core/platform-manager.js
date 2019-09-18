@@ -3,6 +3,11 @@
 const { PLATFORM_DEFS, PLATFORMS } = require('../constants/platforms');
 const { display } = require('../utils/display');
 
+/**
+ * Checks settings to determine platforms to process.
+ * @param {*} settings Updated platform definition paths
+ * @returns {Promise<String[]>} Returns an array of platforms to be processed
+ */
 function checkPlatforms(settings) {
   if (!settings.platforms || !Array.isArray(settings.platforms)) {
     display.success('Processing files for all platforms');
@@ -30,7 +35,11 @@ function checkPlatforms(settings) {
   return Promise.resolve(platformsToProcess);
 }
 
-// app functions
+/**
+ * Update the platform definition paths to be relative with the path from `configPath` CLI option
+ * @param {*} settings Current platform definition paths
+ * @returns {Promise} Updated platform definition paths
+ */
 function updatePlatforms(settings) {
   if (settings.configPath) {
     for (const platform in PLATFORM_DEFS) {

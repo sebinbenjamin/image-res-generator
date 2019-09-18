@@ -15,6 +15,18 @@ const { catchErrors } = require('./utils/error-handlers');
 let gImageObjects;
 let gSelectedPlatforms = [];
 
+/**
+ *  Initialize the app with given configuration values.
+ *
+  @param initSettings  {JSON}
+  {
+    iconFile: 'resources/icon', splashFile: 'resources/splash',
+    platforms: 'ios,android', outputDirectory: 'resources',
+    makeIcon: true, makeSplash: true, configPath: undefined
+  }
+  @returns {Promise<Boolean>} true if path for outputDirectory parameter exists
+ *
+ * */
 function initApp(initSettings) {
   const settings = { ...initSettings }; // * TODO: refactor to immutable
   checkInputFiles(settings);
