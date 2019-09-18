@@ -12,7 +12,7 @@ program
   .option(
     '-p, --platforms [optional]',
     'optional platform token comma separated list [android,ios,windows,blackberry10,pwa] (default: all platforms processed)',
-    platformList => platformList.split(','),
+    (platformList) => platformList.split(','),
   )
   .option('-o, --outputDir [optional]', 'optional output directory (default: ./resources/)')
   .option('-I, --makeIcon [optional]', 'option to process icon files only')

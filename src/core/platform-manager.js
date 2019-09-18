@@ -14,7 +14,7 @@ function checkPlatforms(settings) {
   const platformsUnknown = [];
 
   platforms.forEach((platform) => {
-    if (PLATFORMS.find(p => platform === p)) {
+    if (PLATFORMS.find((p) => platform === p)) {
       platformsToProcess.push(platform);
     } else {
       platformsUnknown.push(platform);
