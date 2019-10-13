@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:7.10
+      - image: circleci/node:10
 
         # Specify service dependencies here if necessary
         # CircleCI maintains a library of pre-built images
@@ -34,6 +34,11 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: 
+          name: commitlint
+          command: ./node_modules/.bin/commitlint --from HEAD~1 --to HEAD --verbose
+
       # run tests!
       # - run: npm test
 
