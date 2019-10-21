@@ -24,7 +24,7 @@ program
   .option('-d, --debug', 'output extra debugging')
   .parse(process.argv);
 
-if (program.debug) console.log(program.opts());
+if (program.debug) console.debug(program.opts());
 
 // app settings and default values
 const cliParams = {
