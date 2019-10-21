@@ -4,9 +4,14 @@ const { PLATFORM_DEFS, PLATFORMS } = require('../constants/platforms');
 const { display } = require('../utils/display');
 
 /**
- * Checks settings to determine platforms to process.
- * @param {*} settings Updated platform definition paths
- * @returns {Promise<String[]>} Returns an array of platforms to be processed
+ * Checks settings to determine the platforms to process.
+ * @param {JSON} settings Updated platform definition paths
+ * {
+    iconFile: 'resources/icon', splashFile: 'resources/splash',
+    platforms: 'ios,android', outputDirectory: 'resources',
+    makeIcon: true, makeSplash: true, configPath: undefined
+  }
+ * @returns {Promise<String[]>} Returns an array of the platforms to be processed
  */
 function checkPlatforms(settings) {
   if (!settings.platforms || !Array.isArray(settings.platforms)) {
@@ -38,6 +43,11 @@ function checkPlatforms(settings) {
 /**
  * Update the platform definition paths to be relative with the path from `configPath` CLI option
  * @param {*} settings Current platform definition paths
+ * {
+    iconFile: 'resources/icon', splashFile: 'resources/splash',
+    platforms: 'ios,android', outputDirectory: 'resources',
+    makeIcon: true, makeSplash: true, configPath: undefined
+ * }
  * @returns {Promise} Updated platform definition paths
  */
 function updatePlatforms(settings) {

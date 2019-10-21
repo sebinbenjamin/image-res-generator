@@ -2,6 +2,12 @@ const sharp = require('sharp');
 
 const { display } = require('../utils/display');
 
+/**
+ * Checks the dimensions, format of the IconFile and returns a sharp instance of the file
+ * @param string Name of the iconFile input.
+ * @returns A promise containing the sharp instance of the iconFile
+  * @throws An Error object if image format is incorrect.
+ */
 function checkIconFile(iconFileName) {
   const result = sharp(iconFileName);
   return result.metadata().then((image) => {
@@ -16,6 +22,12 @@ function checkIconFile(iconFileName) {
   });
 }
 
+/**
+ * Checks the dimensions, format of the splashFile and returns a sharp instance of the file
+ * @param string Name of the splashFile input.
+ * @returns A promise containing the sharp instance of the splashFile
+ * @throws An Error object if image format is incorrect.
+ */
 function checkSplashFile(splashFileName) {
   const result = sharp(splashFileName);
   return result.metadata().then((image) => {
@@ -30,6 +42,19 @@ function checkSplashFile(splashFileName) {
   });
 }
 
+/**
+ * Checks settings and gets imageObjects from Icon and/or Splash files.
+ * @param {JSON} settings
+ * {
+    iconFile: 'resources/icon', splashFile: 'resources/splash',
+    platforms: 'ios,android', outputDirectory: 'resources',
+    makeIcon: true, makeSplash: true, configPath: undefined
+  }
+ * @return {JSON}  {
+    icon: Object,
+    splash: Object,
+  };
+ */
 function getIconAndSplashSrc(settings) {
   const imageObjects = {
     icon: null,
@@ -46,7 +71,7 @@ function getIconAndSplashSrc(settings) {
       imageObjects.splash = image;
     });
   }
-  return imageObjects;
+  return imageObjects; // suspected missing promise wait
 }
 
 exports.getIconAndSplashSrc = getIconAndSplashSrc;

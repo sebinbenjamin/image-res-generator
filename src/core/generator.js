@@ -5,6 +5,13 @@ const path = require('path');
 const { PLATFORM_DEFS } = require('../constants/platforms');
 const { display } = require('../utils/display');
 
+/**
+ * @param {*} definition
+ * @param {*} platformPath
+ * @param {*} imageObj
+ * @param {*} type
+ * @param {*} platform
+ */
 const transformIcon = (definition, platformPath, imageObj, type, platform) => {
   const image = imageObj.icon;
   const outputFilePath = path.join(platformPath, definition.name);
@@ -38,6 +45,18 @@ const transformSplash = (definition, platformPath, imageObj, type, platform) => 
     }));
 };
 
+/**
+ * ???
+ * @param {JSON} settings
+ *{
+  iconFile: 'resources/icon', splashFile: 'resources/splash',
+  platforms: 'ios,android', outputDirectory: 'resources',
+  makeIcon: true, makeSplash: true, configPath: undefined
+}
+ * @param {*} imageObj Object containing the sharp instance of the iconFile & splashFiles.
+ * @param {*} config
+ * @returns
+ */
 function generateForConfig(imageObj, settings, config) {
   const platformPath = path.join(settings.outputDirectory, config.path);
   return fs.ensureDir(platformPath).then(() => {
@@ -92,6 +111,22 @@ function generateForConfig(imageObj, settings, config) {
   });
 }
 
+/**
+ * ???
+ * @param {JSON} imageObj Object containing the sharp instances of icon/splash images.
+ *
+ * {
+    icon: null,
+    splash: null
+  }
+ * @param {JSON} settings
+ * {
+    iconFile: 'resources/icon', splashFile: 'resources/splash',
+    platforms: 'ios,android', outputDirectory: 'resources',
+    makeIcon: true, makeSplash: true, configPath: undefined
+  }
+ * @param {Array<string>} gSelectedPlatforms List of platforms to generate resources for.
+ */
 function generate(imageObj, settings, gSelectedPlatforms) {
   display.header('Generating files');
   display.info('=================');
