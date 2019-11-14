@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 function catchErrors(err) {
   if (err) {
-    console.log('Error: ', err.message);
+    // eslint-disable-next-line no-console
+    console.error('Error: ', err.message);
     process.exit(1);
   }
 }
