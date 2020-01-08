@@ -51,8 +51,8 @@
     "commander": "^3.0.2",
     "colors": "^1.4.0",
     "fs-extra": "^8.1.0",
-    "snyk": "^1.244.0",
-    "sharp": "^0.23.2"
+    "snyk": "^1.274.0",
+    "sharp": "^0.23.4"
   },
   "contributors": [
     {
@@ -65,12 +65,12 @@
     }
   ],
   "devDependencies": {
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-conventional": "^8.2.0",
-    "eslint": "^6.6.0",
+    "@commitlint/cli": "^8.3.4",
+    "@commitlint/config-conventional": "^8.3.4",
+    "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "husky": "^3.0.9"
+    "eslint-plugin-import": "^2.19.1",
+    "husky": "^3.1.0"
   },
   "snyk": true
 }
