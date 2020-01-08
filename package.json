@@ -12,7 +12,7 @@
     "lint": "eslint -f table \"./src/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "res-gen": "./bin/irgen -p android,pwa",
-    "snyk-protect": "snyk protect",
+    "snyk-protect": "snyk protect",f86f9d2b22ac78d3f1ad393398674f6ebaf9b5d8
     "prepare": "npm run snyk-protect"
   },
   "husky": {
@@ -51,7 +51,7 @@
     "commander": "^3.0.2",
     "colors": "^1.4.0",
     "fs-extra": "^8.1.0",
-    "sharp": "^0.23.1",
+    "sharp": "^0.23.4",
     "snyk": "^1.236.1"
   },
   "contributors": [
@@ -64,13 +64,13 @@
       "email": "olivabdev@gmail.com"
     }
   ],
-  "devDependencies": {
+  "devDependencies": {f86f9d2b22ac78d3f1ad393398674f6ebaf9b5d8
     "@commitlint/cli": "^8.3.4",
     "@commitlint/config-conventional": "^8.3.4",
-    "eslint": "^6.5.1",
+    "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "husky": "^3.0.9"
+    "eslint-plugin-import": "^2.19.1",
+    "husky": "^3.1.0"
   },
   "snyk": true
 }
