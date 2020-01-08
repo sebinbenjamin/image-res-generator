@@ -12,7 +12,7 @@
     "lint": "eslint -f table \"./src/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "res-gen": "./bin/irgen -p android,pwa",
-    "snyk-protect": "snyk protect",f86f9d2b22ac78d3f1ad393398674f6ebaf9b5d8
+    "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
   },
   "husky": {
@@ -64,7 +64,7 @@
       "email": "olivabdev@gmail.com"
     }
   ],
-  "devDependencies": {f86f9d2b22ac78d3f1ad393398674f6ebaf9b5d8
+  "devDependencies": {
     "@commitlint/cli": "^8.3.4",
     "@commitlint/config-conventional": "^8.3.4",
     "eslint": "^6.8.0",
