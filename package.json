@@ -51,7 +51,7 @@
     "commander": "^3.0.2",
     "colors": "^1.4.0",
     "fs-extra": "^8.1.0",
-    "snyk": "^1.274.0",
+    "snyk": "^1.297.2",
     "sharp": "^0.23.4"
   },
   "contributors": [
