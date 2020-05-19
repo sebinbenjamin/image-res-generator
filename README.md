@@ -12,8 +12,6 @@ Automatic icon and splash screen resizing CLI tool for **Cordova**/**Ionic**/**P
 
 It automatically resizes and copies your ```icon.png``` and ```splash.png``` files to the platform dedicated directories.
 
-It does **NOT require** any external binary libraries. **Javascript only**.
-
 ---
 <!-- ## Installation
 
@@ -106,6 +104,12 @@ Supported platforms:
 
 ---
 
+## To Do
+- Fix installation as npm package
+- Add options for Crop resizing strategy
+- Update image configurations for all platforms   
+- Add support for capacitor
+
 ## Contributing
 Thanks for your interest in contributing! 
 Read up on our [guidelines](https://github.com/sebinbenjamin/image-res-generator/blob/master/CONTRIBUTING.md) to start contributing.
@@ -113,7 +117,7 @@ Read up on our [guidelines](https://github.com/sebinbenjamin/image-res-generator
 ---
 
 ## Credits
-This open-source project is made possible with the help and support of the amazing open source community. Special thanks to:
+This open-source project is made possible with the help and support of the amazing open-source community. Special thanks to:
 
 * All contributors in this project ✨💚.
 * [@olivab][1] for creating and maintaining the original project [cordova-res-generator][2].
