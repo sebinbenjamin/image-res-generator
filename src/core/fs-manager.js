@@ -6,6 +6,11 @@ const { IMAGE_FORMATS } = require('../constants/image-formats');
 const { display } = require('../utils/display');
 const { catchErrors } = require('../utils/error-handlers');
 
+/**
+ * checks if file extension is in the supported IMAGE_FORMATS
+ * @param {*} fileName ???
+ * @return {Boolean}
+ */
 function isSupportedFormat(fileName) {
   let vExt = path.extname(fileName);
   //* TODO: refactor if/return logic
@@ -16,6 +21,11 @@ function isSupportedFormat(fileName) {
   return false;
 }
 
+/**
+ * Verifies and returns file extension support, if file exists
+ * @param inputFileName {string}
+ * @return {string} returns a valid filename.ext
+ */
 function getValidFileName(inputFileName) {
   let fileName = inputFileName.slice(); // * TODO: refactor to immutable
   let result;
@@ -40,32 +50,45 @@ function getValidFileName(inputFileName) {
   return result;
 }
 
+/**
+ * Checks if input iconFile and splashFile are valid
+ * @param initSettings  {JSON}
+ * {
+    iconFile: 'resources/icon', splashFile: 'resources/splash',
+    platforms: 'ios,android', outputDirectory: 'resources',
+    makeIcon: true, makeSplash: true, configPath: undefined, cropSplash:false
+  }
+ */
 function checkInputFiles(settings) {
   display.header('Checking files and directories');
   display.info('==================================');
-
-  let vFile;
   try {
-    vFile = getValidFileName(settings.iconFile);
-    settings.iconFile = vFile;
-
-    vFile = getValidFileName(settings.splashFile);
-    settings.splashFile = vFile;
+    settings.iconFile = getValidFileName(settings.iconFile); // is the assignment needed
+    settings.splashFile = getValidFileName(settings.splashFile); // is the assignment needed
   } catch (err) {
     catchErrors(err);
   }
 }
 
+/**
+ * Checks if `settings.outputDirectory` exists
+ * @param initSettings  {JSON}
+ * {
+    iconFile: 'resources/icon', splashFile: 'resources/splash',
+    platforms: 'ios,android', outputDirectory: 'resources',
+    makeIcon: true, makeSplash: true, configPath: undefined, cropSplash:false
+  }
+ * @returns {Promise<Boolean>} promise which resolves to true if dir exists, else false
+ */
 function checkOutPutDir(settings) {
   const dir = settings.outputDirectory;
-
-  return fs.pathExists(dir).then((exists) => {
+  fs.pathExists(dir).then(exists => {
     if (exists) {
       display.success(`Output directory ok (${dir})`);
-    } else {
-      display.error(`Output directory not found (${dir})`);
-      throw new Error(`Output directory not found: ${dir}`);
+      return Promise.resolve(exists);
     }
+    display.error(`Output directory not found (${dir})`);
+    return Promise.reject(new Error(`Output directory not found: ${dir}`));
   });
 }
 

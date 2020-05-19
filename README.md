@@ -8,7 +8,7 @@
 
 ## Introduction
 
-Automatic icon and splash screen resizing CLI tool for **Cordova**/**Ionic**/**PhoneGap** based applications and PWAs.
+Automatic icon and splash screen resizing tool. Helpful for quickly generating image assets for **Angular**/**Ionic**/**Capacitor**/**Cordova**/**PhoneGap** apps, PWAs and general use.
 
 It automatically resizes and copies your ```icon.png``` and ```splash.png``` files to the platform dedicated directories.
 
@@ -21,13 +21,28 @@ It automatically resizes and copies your ```icon.png``` and ```splash.png``` fil
 ## Usage
 ### Required files
 
-Add your ```icon```  and ```splash```  files to the 'resources' folder under the root of your project. Make sure they are atleast (1024px x 1024px) for icons and (2732px x 2732px) for splash images. 
+Add your ```icon```  and ```splash```  files to the 'resources' folder under the root of your project. Make sure they are at least (1024px x 1024px) for icons and (2732px x 2732px) for splash images. 
+
 
 ```
 resources/
 ├── icon.png
 └── splash.png
 ```
+
+**Update** : You could now use `SVG` vector images for the same  🎉. 
+
+```
+resources/
+├── icon.svg
+└── splash.svg
+```
+While creating a base splash image, make sure that the splash screen's artwork roughly fits/covers a square (1200x1200) at the center of the image (2732x2732).
+
+<img src="https://user-images.githubusercontent.com/4099066/82296073-bd052880-9a04-11ea-9ee7-199b6dc1e826.jpg" width="75%">
+
+You can use this [template](https://code.ionicframework.com/resources/splash.psd) provided by the Ionic team for easier splash creation.
+
 
 ### Command line
 
@@ -56,12 +71,13 @@ or
                                 (default: ./resources/)
     -I, --makeicon [optional]   option to process icon files only
     -S, --makesplash [optional] option to process splash files only
+    -c, --crop[optional]        option to crop images, instead of the default 'resize' strategy. 
     -h, --help                  output usage information
     -d, --debug                 output debugging information
 
 ---
 
-## Do yourself a favour
+## Do yourself a favor
 
 Add to your package.json a script definition to match your file generation needs.
 This way, you won't have to repeat the whole command along with the options.
@@ -104,8 +120,9 @@ Supported platforms:
 
 ---
 
-## To Do
-- Fix installation as npm package
+## Upcoming tasks
+- Fix installation as an npm package. 
+- Copy assets to android/ios capacitor folders.
 - Add options for Crop resizing strategy
 - Update image configurations for all platforms   
 - Add support for capacitor

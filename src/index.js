@@ -15,6 +15,18 @@ const { catchErrors } = require('./utils/error-handlers');
 let gImageObjects;
 let gSelectedPlatforms = [];
 
+/**
+ *  Initialize the app with given configuration values.
+ *
+  @param initSettings  {JSON}
+  {
+    iconFile: 'resources/icon', splashFile: 'resources/splash',
+    platforms: 'ios,android', outputDirectory: 'resources',
+    makeIcon: true, makeSplash: true, configPath: undefined, cropSplash:false
+  }
+  @returns {Promise<Boolean>} true if path for outputDirectory parameter exists
+ *
+ * */
 function initApp(initSettings) {
   const settings = { ...initSettings }; // * TODO: refactor to immutable
   checkInputFiles(settings);
@@ -23,9 +35,9 @@ function initApp(initSettings) {
       .then(() => checkPlatforms(settings))
       // * FIXME:  should be refactored
       // eslint-disable-next-line no-return-assign
-      .then((selPlatforms) => (gSelectedPlatforms = selPlatforms))
+      .then(selPlatforms => (gSelectedPlatforms = selPlatforms))
       .then(() => getIconAndSplashSrc(settings))
-      .then((imageObjects) => {
+      .then(imageObjects => {
         gImageObjects = imageObjects;
       })
       .then(() => checkOutPutDir(settings))
@@ -33,10 +45,10 @@ function initApp(initSettings) {
 }
 
 // app entry point
-console.log('***************************');
-console.log(`image-res-generator ${packageJSON.version}`);
-console.log('***************************');
+console.info('***************************');
+console.info(`image-res-generator ${packageJSON.version}`);
+console.info('***************************');
 
 initApp(cliParams)
   .then(() => generate(gImageObjects, cliParams, gSelectedPlatforms))
-  .catch((err) => catchErrors(err));
+  .catch(err => catchErrors(err));

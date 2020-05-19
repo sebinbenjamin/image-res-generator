@@ -1,7 +1,7 @@
 module.exports = {
   platform: 'ios',
   type: 'icon',
-  path: 'ios/icon',
+  path: 'ios/icon/',
   definitions: [
     {
       name: 'icon.png',
