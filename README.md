@@ -12,8 +12,6 @@ Automatic icon and splash screen resizing CLI tool for **Cordova**/**Ionic**/**P
 
 It automatically resizes and copies your ```icon.png``` and ```splash.png``` files to the platform dedicated directories.
 
-It does **NOT require** any external binary libraries. **Javascript only**.
-
 ---
 <!-- ## Installation
 
@@ -105,6 +103,12 @@ Supported platforms:
   - icons
 
 ---
+
+## To Do
+- Fix installation as npm package
+- Add options for Crop resizing strategy
+- Update image configurations for all platforms   
+- Add support for capacitor
 
 ## Contributing
 Thanks for your interest in contributing! 
