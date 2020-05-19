@@ -50,14 +50,13 @@ function getValidFileName(inputFileName) {
   return result;
 }
 
-
 /**
  * Checks if input iconFile and splashFile are valid
  * @param initSettings  {JSON}
  * {
     iconFile: 'resources/icon', splashFile: 'resources/splash',
     platforms: 'ios,android', outputDirectory: 'resources',
-    makeIcon: true, makeSplash: true, configPath: undefined
+    makeIcon: true, makeSplash: true, configPath: undefined, cropSplash:false
   }
  */
 function checkInputFiles(settings) {
@@ -77,13 +76,13 @@ function checkInputFiles(settings) {
  * {
     iconFile: 'resources/icon', splashFile: 'resources/splash',
     platforms: 'ios,android', outputDirectory: 'resources',
-    makeIcon: true, makeSplash: true, configPath: undefined
+    makeIcon: true, makeSplash: true, configPath: undefined, cropSplash:false
   }
  * @returns {Promise<Boolean>} promise which resolves to true if dir exists, else false
  */
 function checkOutPutDir(settings) {
   const dir = settings.outputDirectory;
-  fs.pathExists(dir).then((exists) => {
+  fs.pathExists(dir).then(exists => {
     if (exists) {
       display.success(`Output directory ok (${dir})`);
       return Promise.resolve(exists);

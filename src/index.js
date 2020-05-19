@@ -22,7 +22,7 @@ let gSelectedPlatforms = [];
   {
     iconFile: 'resources/icon', splashFile: 'resources/splash',
     platforms: 'ios,android', outputDirectory: 'resources',
-    makeIcon: true, makeSplash: true, configPath: undefined
+    makeIcon: true, makeSplash: true, configPath: undefined, cropSplash:false
   }
   @returns {Promise<Boolean>} true if path for outputDirectory parameter exists
  *
@@ -35,9 +35,9 @@ function initApp(initSettings) {
       .then(() => checkPlatforms(settings))
       // * FIXME:  should be refactored
       // eslint-disable-next-line no-return-assign
-      .then((selPlatforms) => (gSelectedPlatforms = selPlatforms))
+      .then(selPlatforms => (gSelectedPlatforms = selPlatforms))
       .then(() => getIconAndSplashSrc(settings))
-      .then((imageObjects) => {
+      .then(imageObjects => {
         gImageObjects = imageObjects;
       })
       .then(() => checkOutPutDir(settings))
@@ -51,4 +51,4 @@ console.info('***************************');
 
 initApp(cliParams)
   .then(() => generate(gImageObjects, cliParams, gSelectedPlatforms))
-  .catch((err) => catchErrors(err));
+  .catch(err => catchErrors(err));

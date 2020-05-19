@@ -51,7 +51,7 @@ const transformSplash = (definition, platformPath, imageObj, type, platform) => 
  *{
   iconFile: 'resources/icon', splashFile: 'resources/splash',
   platforms: 'ios,android', outputDirectory: 'resources',
-  makeIcon: true, makeSplash: true, configPath: undefined
+  makeIcon: true, makeSplash: true, configPath: undefined, cropSplash:false
 }
  * @param {*} imageObj Object containing the sharp instance of the iconFile & splashFiles.
  * @param {*} config
@@ -86,24 +86,28 @@ function generateForConfig(imageObj, settings, config) {
     // * TODO: make generateForConfig return promises properly
     if (promiseArrayIcons.length) {
       Promise.all(promiseArrayIcons)
-        .then((success) => {
+        .then(success => {
           const configType = success[0].config.type;
           const configPlatform = success[0].config.platform;
-          display.success(`Generated ${configType} files for ${configPlatform}`);
+          display.success(
+            `Generated ${configType} files for ${configPlatform}`
+          );
         })
-        .catch((err) => {
+        .catch(err => {
           // console.error('ERROR', err);
           throw err;
         });
     }
     if (promiseArraySplash.length) {
       Promise.all(promiseArraySplash)
-        .then((success) => {
+        .then(success => {
           const configType = success[0].config.type;
           const configPlatform = success[0].config.platform;
-          display.success(`Generated ${configType} files for ${configPlatform}`);
+          display.success(
+            `Generated ${configType} files for ${configPlatform}`
+          );
         })
-        .catch((err) => {
+        .catch(err => {
           // console.error('ERROR', err);
           throw err;
         });
@@ -123,7 +127,7 @@ function generateForConfig(imageObj, settings, config) {
  * {
     iconFile: 'resources/icon', splashFile: 'resources/splash',
     platforms: 'ios,android', outputDirectory: 'resources',
-    makeIcon: true, makeSplash: true, configPath: undefined
+    makeIcon: true, makeSplash: true, configPath: undefined, cropSplash:false
   }
  * @param {Array<string>} gSelectedPlatforms List of platforms to generate resources for.
  */
@@ -132,18 +136,20 @@ function generate(imageObj, settings, gSelectedPlatforms) {
   display.info('=================');
   const configs = [];
   // * TO DO: Refactor if possible
-  gSelectedPlatforms.forEach((platform) => {
+  gSelectedPlatforms.forEach(platform => {
     PLATFORM_DEFS[platform].definitions.forEach(
       // eslint-disable-next-line import/no-dynamic-require
-      (platformDef) => configs.push(require(platformDef)),
+      platformDef => configs.push(require(platformDef))
     );
   });
 
-  const filteredConfigs = configs.filter((config) => {
+  const filteredConfigs = configs.filter(config => {
     if (config.type === 'icon' && settings.makeIcon) return true;
     if (config.type === 'splash' && settings.makeSplash) return true;
     return false;
   });
-  return filteredConfigs.forEach((config) => generateForConfig(imageObj, settings, config));
+  return filteredConfigs.forEach(config =>
+    generateForConfig(imageObj, settings, config)
+  );
 }
 exports.generate = generate;

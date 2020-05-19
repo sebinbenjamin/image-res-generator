@@ -9,7 +9,7 @@ const { display } = require('../utils/display');
  * {
     iconFile: 'resources/icon', splashFile: 'resources/splash',
     platforms: 'ios,android', outputDirectory: 'resources',
-    makeIcon: true, makeSplash: true, configPath: undefined
+    makeIcon: true, makeSplash: true, configPath: undefined, cropSplash:false
   }
  * @returns {Promise<String[]>} Returns an array of the platforms to be processed
  */
@@ -23,8 +23,12 @@ function checkPlatforms(settings) {
   const platformsToProcess = [];
   const platformsUnknown = [];
 
-  platforms.forEach((requestedPlatform) => {
-    if (PLATFORMS.find((availablePlatform) => requestedPlatform === availablePlatform)) {
+  platforms.forEach(requestedPlatform => {
+    if (
+      PLATFORMS.find(
+        availablePlatform => requestedPlatform === availablePlatform
+      )
+    ) {
       platformsToProcess.push(requestedPlatform);
     } else {
       platformsUnknown.push(requestedPlatform);
@@ -46,7 +50,7 @@ function checkPlatforms(settings) {
  * {
     iconFile: 'resources/icon', splashFile: 'resources/splash',
     platforms: 'ios,android', outputDirectory: 'resources',
-    makeIcon: true, makeSplash: true, configPath: undefined
+    makeIcon: true, makeSplash: true, configPath: undefined, cropSplash:false
  * }
  * @returns {Promise} Updated platform definition paths
  */
@@ -58,7 +62,7 @@ function updatePlatforms(settings) {
         if (iconConfig) {
           PLATFORM_DEFS[platform].definitions[0] = iconConfig.replace(
             './platforms',
-            settings.configPath,
+            settings.configPath
           );
         }
 
@@ -66,7 +70,7 @@ function updatePlatforms(settings) {
         if (splashConfig) {
           PLATFORM_DEFS[platform].definitions[1] = splashConfig.replace(
             './platforms',
-            settings.configPath,
+            settings.configPath
           );
         }
       }
