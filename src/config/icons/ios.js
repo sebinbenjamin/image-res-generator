@@ -125,7 +125,7 @@ module.exports = {
     {
       name: 'icon-55.png',
       size: 55,
-      comment: 'Apple Watch',
+      comment: 'Apple Watch notification',
     },
     {
       name: 'icon-172.png',
