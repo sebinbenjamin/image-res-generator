@@ -117,5 +117,30 @@ module.exports = {
       size: 88,
       comment: 'Unassigned',
     },
+    {
+      name: 'icon-48.png',
+      size: 48,
+      comment: 'Apple Watch',
+    },
+    {
+      name: 'icon-55.png',
+      size: 55,
+      comment: 'Apple Watch',
+    },
+    {
+      name: 'icon-172.png',
+      size: 172,
+      comment: 'Apple Watch 86×86pt',
+    },
+    {
+      name: 'icon-196.png',
+      size: 196,
+      comment: 'Apple Watch 98×98pt',
+    },
+    {
+      name: 'icon-216.png',
+      size: 216,
+      comment: 'Apple Watch 108×108pt',
+    },
   ],
 };
