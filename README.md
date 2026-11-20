@@ -1,5 +1,20 @@
 # image-res-generator
 
+## Archived
+
+This project was retired on 21 November 2026. It is no longer maintained and will receive no further releases, bug fixes or support. The source and existing issues remain available for reference.
+
+For new projects, use the asset tooling documented by your framework:
+
+- Capacitor and Ionic with Capacitor: [@capacitor/assets](https://capacitorjs.com/docs/guides/splash-screens-and-icons).
+- Quasar: [Icon Genie](https://quasar.dev/icongenie/installation/).
+
+These tools are not drop-in replacements. Follow their input file and output configuration instructions.
+
+The last published npm version is 0.6.2. The 0.7.0 version in this repository was never published. Older dependencies may prevent the published package from installing on current Node.js versions.
+
+The instructions below describe the historical project and may differ from the published npm package. They are retained for reference.
+
 [![CircleCI build status](https://img.shields.io/circleci/build/github/sebinbenjamin/image-res-generator.svg)](https://circleci.com/gh/sebinbenjamin/image-res-generator)
 [![Codeclimate Issues](https://img.shields.io/codeclimate/issues/sebinbenjamin/image-res-generator.svg)](https://codeclimate.com/github/sebinbenjamin/image-res-generator/issues)
 [![Codeclimate Maintainability](https://img.shields.io/codeclimate/maintainability-percentage/sebinbenjamin/image-res-generator.svg)](https://codeclimate.com/github/sebinbenjamin/image-res-generator/maintainability)
