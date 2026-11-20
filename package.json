@@ -1,6 +1,6 @@
 {
   "name": "image-res-generator",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "Generates icon & splash screen for iOS, Android, PWA's and other major platforms using javascript only.",
   "main": "src/index.js",
   "preferGlobal": true,
@@ -11,9 +11,7 @@
   "scripts": {
     "lint": "eslint -f table \"./src/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "res-gen": "./bin/irgen -p android,pwa",
-    "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "res-gen": "./bin/irgen -p android,pwa"
   },
   "husky": {
     "hooks": {
@@ -47,14 +45,10 @@
   },
   "homepage": "https://github.com/sebinbenjamin/image-res-generator",
   "dependencies": {
-    "babel-eslint": "^10.1.0",
     "colors": "^1.4.0",
-    "commander": "^3.0.2",
-    "eslint-config-prettier": "^6.5.0",
-    "eslint-plugin-prettier": "^3.1.1",
-    "fs-extra": "^8.1.0",
-    "sharp": "^0.23.4",
-    "snyk": "^1.316.1"
+    "commander": "^12.1.0",
+    "fs-extra": "^11.2.0",
+    "sharp": "^0.33.4"
   },
   "contributors": [
     {
@@ -67,12 +61,18 @@
     }
   ],
   "devDependencies": {
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.1",
-    "husky": "^3.1.0"
-  },
-  "snyk": true
+    "@babel/eslint-parser": "^7.25.1",
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.9.0",
+    "eslint": "^9.9.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-formatter-table": "^7.32.1",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "globals": "^15.9.0",
+    "husky": "^9.1.4",
+    "prettier": "3.3.3"
+  }
 }

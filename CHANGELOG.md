@@ -6,6 +6,18 @@ Removed     - for now, removed features.
 Fixed       - for any bug fixes.
 Security    - in case of vulnerabilities. -->
 
+## [[0.7.0] - 2024-08-11](https://github.com/sebinbenjamin/image-res-generator/compare/0.6.2...0.7.0)
+
+### Changed
+- After being archived for 2 years, the project has been reactivated.
+- Updated all dependencies and development tools to their latest versions to ensure compatibility and security.
+
+### Security
+- Addressed potential vulnerabilities by upgrading outdated dependencies.
+
+### Note
+- Additional changes and improvements will follow soon.
+
 ## [[0.6.2] - 2019-07-20](https://github.com/sebinbenjamin/image-res-generator/compare/0.6.1...0.6.2)
 
 ### Added (dev-features)

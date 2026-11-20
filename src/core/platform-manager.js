@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-syntax */
-
 const { PLATFORM_DEFS, PLATFORMS } = require('../constants/platforms');
 const { display } = require('../utils/display');
 
@@ -23,10 +21,10 @@ function checkPlatforms(settings) {
   const platformsToProcess = [];
   const platformsUnknown = [];
 
-  platforms.forEach(requestedPlatform => {
+  platforms.forEach((requestedPlatform) => {
     if (
       PLATFORMS.find(
-        availablePlatform => requestedPlatform === availablePlatform
+        (availablePlatform) => requestedPlatform === availablePlatform
       )
     ) {
       platformsToProcess.push(requestedPlatform);

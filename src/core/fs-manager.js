@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 const fs = require('fs-extra');
 const path = require('path');
 
@@ -82,7 +81,7 @@ function checkInputFiles(settings) {
  */
 function checkOutPutDir(settings) {
   const dir = settings.outputDirectory;
-  fs.pathExists(dir).then(exists => {
+  fs.pathExists(dir).then((exists) => {
     if (exists) {
       display.success(`Output directory ok (${dir})`);
       return Promise.resolve(exists);

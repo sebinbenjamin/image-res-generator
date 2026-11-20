@@ -1,54 +1,35 @@
-version: 2
+version: 2.1
+
+orbs:
+  node: circleci/node@5.0.2
+
 jobs:
-  build:
-    docker:
-      - image: circleci/node:10
-        environment:
-          CODECOV_TOKEN: 5aade52f-653e-4539-aa00-137db7c15586
-    working_directory: ~/repo
+  build_and_test:
+    executor: node/default
+    environment:
+      CODECOV_TOKEN: 5aade52f-653e-4539-aa00-137db7c15586
     steps:
       - checkout
-      - run: npm install
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-  test:
-    docker:
-      - image: circleci/node:10
-        environment:
-          CODECOV_TOKEN: 5aade52f-653e-4539-aa00-137db7c15586
-    working_directory: ~/repo
-    steps:  
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
+      - node/install-packages:
+          pkg-manager: npm
       - run:
-          name: commitlint
+          command: npm run lint
+          name: Lint code
+      - run:
           command: ./node_modules/.bin/commitlint --from HEAD~1 --to HEAD --verbose
-
-      # TODO: Enforce eslint, commit message format, run coverage checks
-      # TODO: Add awesome_bot to check URLs in markdown files
-      # https://github.com/dkhamsing/awesome_bot
-      # machine:
-      #   ruby:
-      #     version: 2.4.1
-      # test:
-      #   pre:
-      #     - gem install awesome_bot
-      #   override:
-      #     - awesome_bot README.md
+          name: Commit Linting
+      - run:
+          command: npm run test
+          name: Run tests
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
 
 workflows:
-  version: 2
-  build-and-test:
+  build_and_test_workflow:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
+      - build_and_test:
           filters:
             branches:
-              ignore: master
+              ignore:
+                - master

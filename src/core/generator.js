@@ -1,4 +1,3 @@
-/* eslint-disable global-require */
 const fs = require('fs-extra');
 const path = require('path');
 
@@ -18,16 +17,26 @@ const transformIcon = (definition, platformPath, imageObj, type, platform) => {
   const outDir = path.dirname(outputFilePath);
   return fs
     .ensureDir(outDir)
-    .then(() => image.resize(definition.size, definition.size).toFile(outputFilePath))
-    .then(() => Promise.resolve({
-      config: {
-        type,
-        platform,
-      },
-    }));
+    .then(() =>
+      image.resize(definition.size, definition.size).toFile(outputFilePath)
+    )
+    .then(() =>
+      Promise.resolve({
+        config: {
+          type,
+          platform,
+        },
+      })
+    );
 };
 
-const transformSplash = (definition, platformPath, imageObj, type, platform) => {
+const transformSplash = (
+  definition,
+  platformPath,
+  imageObj,
+  type,
+  platform
+) => {
   const image = imageObj.splash;
   const { width } = definition;
   const { height } = definition;
@@ -36,13 +45,17 @@ const transformSplash = (definition, platformPath, imageObj, type, platform) => 
 
   return fs
     .ensureDir(outDir)
-    .then(() => image.resize({ width, height, position: 'centre' }).toFile(outputFilePath))
-    .then(() => Promise.resolve({
-      config: {
-        type,
-        platform,
-      },
-    }));
+    .then(() =>
+      image.resize({ width, height, position: 'centre' }).toFile(outputFilePath)
+    )
+    .then(() =>
+      Promise.resolve({
+        config: {
+          type,
+          platform,
+        },
+      })
+    );
 };
 
 /**
@@ -64,18 +77,30 @@ function generateForConfig(imageObj, settings, config) {
     const { definitions } = config;
     const promiseArrayIcons = [];
     const promiseArraySplash = [];
-    // eslint-disable-next-line no-console
+
     display.info(`Processing ${config.platform} ${config.type} files ...`);
     definitions.forEach((def) => {
       switch (config.type) {
         case 'icon':
           promiseArrayIcons.push(
-            transformIcon(def, platformPath, imageObj, config.type, config.platform),
+            transformIcon(
+              def,
+              platformPath,
+              imageObj,
+              config.type,
+              config.platform
+            )
           );
           break;
         case 'splash':
           promiseArraySplash.push(
-            transformSplash(def, platformPath, imageObj, config.type, config.platform),
+            transformSplash(
+              def,
+              platformPath,
+              imageObj,
+              config.type,
+              config.platform
+            )
           );
           break;
         default:
@@ -86,28 +111,28 @@ function generateForConfig(imageObj, settings, config) {
     // * TODO: make generateForConfig return promises properly
     if (promiseArrayIcons.length) {
       Promise.all(promiseArrayIcons)
-        .then(success => {
+        .then((success) => {
           const configType = success[0].config.type;
           const configPlatform = success[0].config.platform;
           display.success(
             `Generated ${configType} files for ${configPlatform}`
           );
         })
-        .catch(err => {
+        .catch((err) => {
           // console.error('ERROR', err);
           throw err;
         });
     }
     if (promiseArraySplash.length) {
       Promise.all(promiseArraySplash)
-        .then(success => {
+        .then((success) => {
           const configType = success[0].config.type;
           const configPlatform = success[0].config.platform;
           display.success(
             `Generated ${configType} files for ${configPlatform}`
           );
         })
-        .catch(err => {
+        .catch((err) => {
           // console.error('ERROR', err);
           throw err;
         });
@@ -136,19 +161,18 @@ function generate(imageObj, settings, gSelectedPlatforms) {
   display.info('=================');
   const configs = [];
   // * TO DO: Refactor if possible
-  gSelectedPlatforms.forEach(platform => {
-    PLATFORM_DEFS[platform].definitions.forEach(
-      // eslint-disable-next-line import/no-dynamic-require
-      platformDef => configs.push(require(platformDef))
+  gSelectedPlatforms.forEach((platform) => {
+    PLATFORM_DEFS[platform].definitions.forEach((platformDef) =>
+      configs.push(require(platformDef))
     );
   });
 
-  const filteredConfigs = configs.filter(config => {
+  const filteredConfigs = configs.filter((config) => {
     if (config.type === 'icon' && settings.makeIcon) return true;
     if (config.type === 'splash' && settings.makeSplash) return true;
     return false;
   });
-  return filteredConfigs.forEach(config =>
+  return filteredConfigs.forEach((config) =>
     generateForConfig(imageObj, settings, config)
   );
 }

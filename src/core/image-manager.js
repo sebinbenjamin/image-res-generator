@@ -10,7 +10,7 @@ const { display } = require('../utils/display');
  */
 function checkIconFile(iconFileName) {
   const result = sharp(iconFileName);
-  return result.metadata().then(image => {
+  return result.metadata().then((image) => {
     if (
       image.width === image.height &&
       (image.format === 'svg' || image.width >= 1024)
@@ -33,7 +33,7 @@ function checkIconFile(iconFileName) {
  */
 function checkSplashFile(splashFileName) {
   const result = sharp(splashFileName);
-  return result.metadata().then(image => {
+  return result.metadata().then((image) => {
     if (
       image.width === image.height &&
       (image.format === 'svg' || image.width >= 2732)
@@ -68,12 +68,12 @@ function getIconAndSplashSrc(settings) {
   };
 
   if (settings.makeIcon) {
-    checkIconFile(settings.iconFile).then(image => {
+    checkIconFile(settings.iconFile).then((image) => {
       imageObjects.icon = image;
     });
   }
   if (settings.makeSplash) {
-    checkSplashFile(settings.splashFile).then(image => {
+    checkSplashFile(settings.splashFile).then((image) => {
       imageObjects.splash = image;
     });
   }
